@@ -34,12 +34,14 @@
         <div class="Cn-Cabeçalho">
           <input type="text" placeholder="Titulo" class="titulo-input" id="titulo" >
           <input type="text" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo">
+          <input type="file" multiple id="news-file"  class="inputfile" onchange="File_Name()">
+          <label for="news-file" class="file-input" id="sla">Anexar Arquivos</label>
         </div>
       </div>
 
       <div class="row d-flex justify-content-center">
         <div class="img-input d-flex justify-content-center" id="img-preview" onclick="deletes()">
-          <input type="file" accept="image/*" id="news-image" class="inputfile" onchange="preview()" >
+          <input type="file" accept="image/*" id="news-image" class="inputfile" onchange="preview()">
           <label for="news-image" class="Nimg" id="Nimg">Selecionar Imagem</label>
           <img src="" alt="" id="previews" class="preview-img" style="display: none;">
         </div>

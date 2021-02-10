@@ -7,7 +7,7 @@
     -moz-user-select: auto;
 }
 .titulo-input {
-    margin-left: 270px;
+    margin-left: 500px;
     background-color: transparent;
     border-style: hidden;
     border-bottom: 3px solid #ffffff;
@@ -51,12 +51,11 @@
 }
 .User-text
 {
-    margin-top: 15px;
+    margin-top: 10px;
     color: #ffffff;
     margin-right: 30px;
 }
 .publicarN{
-    margin-top: 5px;
     width: 100px;
     height: 45px;
     background-color: transparent;
@@ -64,7 +63,7 @@
     border-style: solid;
     transition: all 0.5s;
 }
-.publicarN:hover, .Nimg:hover
+.publicarN:hover, .Nimg:hover, .file-input:hover
 {
     color: black;
     border-color: black;
@@ -100,6 +99,16 @@
     border-width: 2px;
     cursor: pointer;
 }
+.file-input{
+    margin-left: 10px;
+    text-align: center;
+    width: 200px;
+    height: 32px;
+    background-color: transparent;
+    color: #ffffff;
+    border-style: solid;
+    transition: all 0.5s;
+}
 .preview-img {
     z-index: -1;
     width: 100%;
@@ -122,6 +131,11 @@
         margin-left: 0px ;
         display: block;
         margin-bottom: 35px;
+    }
+    .file-input
+    {
+        margin-left: 100px ;
+        display: block;
     }
 }
 @media (max-width:620px)
