@@ -6,15 +6,13 @@ $conexao->conectar();
 
 try{
     
-$stm=$conexao->conectar()->prepare("select (news_image) FROM noticias WHERE id_news=8");
+$stm=$conexao->conectar()->prepare("select encode(news_image, 'base64') FROM noticias where id_news='8'");
 $stm->execute();
 
-$sla = $stm->fetch(PDO::FETCH_OBJ)->news_image;
+$sla = $stm->fetch(PDO::FETCH_OBJ);
 // $sla2 = hex2bin($sla);
 // $sla3 = file_put_contents($sla2);
-
-echo ($sla);
-
+echo ($sla->encode);
 }
 catch (Exeception $e)
 {

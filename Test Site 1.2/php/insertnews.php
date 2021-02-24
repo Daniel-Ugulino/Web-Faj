@@ -11,7 +11,6 @@ $sla = $_FILES['images']["tmp_name"];
 $sla1 = file_get_contents($sla);
 $sla3 = bin2hex($sla1);
 echo($sla3);
-// $imgHex = bin2hex($sla);
 
 // //pega os arquivos do form e converte para hexadecimal
 // $filesQTD = count($_FILES['news-file']);
@@ -29,15 +28,13 @@ echo($sla3);
 $conexao=new conexao_banco();
 $conexao->conectar(); 
 
-// $stm=$conexao->conectar()->prepare("insert into noticias values (2,2,:Titulo,:Stitulo,:p1-noticia,:p2-noticia, decode('{$imgHex}' , 'hex'),null,now(),'false')");
-$stm=$conexao->conectar()->prepare("insert into noticias(id_news,news_image) values (9,'$sla3');");
+$stm=$conexao->conectar()->prepare("insert into noticias values (16,null,:Titulo,:Stitulo,:p1noticia,:p2noticia, decode('{$sla3}' , 'hex'),null,now(),'false')");
+// $stm=$conexao->conectar()->prepare("insert into noticias(id_news, news_image) values ('16', decode('{$sla3}' , 'hex'));");
 
-
-
-// $stm->bindParam("titulo",$_POST['Titulo']);
-// $stm->bindParam("subtitulo",$_POST['Stitulo']);
-// $stm->bindParam("noticia_p1",$_POST['p1-noticia']);
-// $stm->bindParam("noticia_p2",$_POST['p2-noticia']);
+$stm->bindParam("Titulo",$_POST['Titulo']);
+$stm->bindParam("Stitulo",$_POST['Stitulo']);
+$stm->bindParam("p1noticia",$_POST['p1-noticia']);
+$stm->bindParam("p2noticia",$_POST['p2-noticia']);
 
 $stm->execute();
 echo("<script>alert('Noticia cadastrada')</script>");
