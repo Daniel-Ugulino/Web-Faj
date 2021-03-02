@@ -1,0 +1,104 @@
+@font-face{
+    font-family: Teste;
+    src: url(../Arquivos/Fontes/Quicksand-Light.ttf);
+    color: white;
+}
+* {
+    scrollbar-color:#07217E white;
+    scrollbar-width: thin;
+    font-family: Teste;
+    -moz-user-select: none;
+}
+body {
+    font-family: Teste;
+    background-color: #6bcfec;
+    background-image: linear-gradient(180deg, #6bcfec 0%, #191d71 100%); 
+    background-repeat:no-repeat;
+    background-attachment: fixed;  
+}
+a:link {
+    text-decoration: none;
+  }
+.nav-login{
+    display: flex;
+    opacity: 1;
+    transition: 1s all;
+}
+.nav-login input {    
+    max-width: 93px;
+    max-height: 40px;
+    border-style: double;
+    text-align: center;
+}
+svg {
+    height: 32px;
+    fill: white;
+    transition: 0.3s all;
+}
+svg:hover {
+  fill: black;
+  cursor: pointer;
+}
+.Logo-Faj {
+    width: 60px;
+    height: 88px;
+}
+.navbar
+{
+    background: rgb(80,192,224);
+    background: linear-gradient(90deg, rgba(80,192,224,1) 34%); 
+}
+#sidebar {
+    z-index: 2;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    overflow-x: hidden;
+    transition: all 0.5s;
+    background-color: #4549e6;
+    background-image: linear-gradient(180deg, #50c0e0 0%, #4549e6 100%);  
+    scrollbar-color: transparent transparent;
+}
+#sidebar a {
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    padding-top:43px;
+    padding-left:20px;
+    color: white;
+}
+#sidebar a:hover {
+    color: #0b090a;
+}
+.news-img {
+    max-width: 560px;
+    height: 350px;
+    border-radius: 30px;
+}
+.pagination {
+    overflow-x: scroll;   
+    overflow-y: hidden;   
+    scrollbar-color:#fff transparent ;
+    scrollbar-width: thin;
+    width: 134px;
+}
+.page-link
+{
+    background-color: transparent;
+    border: transparent;
+    color: #fff;
+}
+.pagination > li > a:hover {
+    color: #000000;
+    background-color: #6e93e2;
+    border-color: transparent;
+}
+@media (max-width:600px) {
+    .nav-login {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        left: -10000px;
+    }
+}
