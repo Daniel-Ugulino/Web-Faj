@@ -1,5 +1,7 @@
 <?php
 include 'conexao.php';
+session_start();
+$op = $_SESSION['op'];
 
 $conexao= new conexao_banco();
 $conexao->conectar();
@@ -26,7 +28,7 @@ else
 $conexao=new conexao_banco();
 $conexao->conectar(); 
 //envia os dados para o banco
-$stm=$conexao->conectar()->prepare("insert into noticias values (DEFAULT,1,:Titulo,:Stitulo,:p1noticia,:p2noticia, decode('{$ImgHex}' , 'hex'), decode('{$fileshex}' , 'hex'),now(),'true')");
+$stm=$conexao->conectar()->prepare("insert into noticias values (DEFAULT,1,:Titulo,:Stitulo,:p1noticia,:p2noticia, decode('{$ImgHex}' , 'hex'), null ,now(),'true')");
 
 $stm->bindParam("Titulo",$_POST['Titulo']);
 $stm->bindParam("Stitulo",$_POST['Stitulo']);
@@ -43,13 +45,69 @@ echo($e);
 }
 }
 
-insert_news();
-
 // function login()
 // {
 //     $stm = $conexao->conectar()->prepare("select * from usuarios where username = '$user' and senha="$senha");
-//     $stm->bindParam(")
+//     $stm->bindParam("")
 // }
+
+function news_menu()
+{
+    try{
+    $i = 0;
+    $conexao= new conexao_banco();
+
+    $conexao->conectar();
+    $stm = $conexao->conectar()->prepare("select * from noticias order by id_news DESC");
+    $stm->execute();
+    $stm->fetch(PDO::FETCH_OBJ);
+    $news = [];
+
+// for($i=0; i<6;i++)
+// {
+//     $news[$i] = array($stm['id_news'],$stm['titulo'],$stm['subtitulo'],$stm['news_image']);
+// })
+
+    foreach($stm as $newsval)
+    {
+        $news[$i] = array($newsval['id_news'],$newsval['titulo'],$newsval['subtitulo'],$newsval['news_image']);
+        $i++;
+    }
+
+    $_SESSION['noticias'] = $news;
+    
+    $y = 0;
+    foreach ($_SESSION['noticias'] as $noticias)
+    {   
+        $id[$y] = $noticias[0];
+        $titulo[$y] = $noticias[1];
+        $subtitulo[$y] = $noticias[2];
+        $img[$y] = $noticias[3];
+        $y++;
+    }
+
+    echo($id[1]);
+    echo($titulo[1]);
+    echo($subtitulo[1]);
+    }
+    catch(Exeception $e)
+    {
+        echo($e);
+    }
+}
+
+function getnews()
+{
+    
+}
+
+switch($op)
+{
+    case("news-create"):insert_news();break;
+    // case("logar"):login();break;
+    case("news-menu"):news();break;
+    case("news-select"):getmews();break
+}
 
 ?>   
 </body>

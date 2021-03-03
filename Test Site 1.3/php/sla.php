@@ -3,7 +3,7 @@ include 'conexao.php';
 $conexao= new conexao_banco();
 $conexao->conectar();
 try{
-$stm=$conexao->conectar()->prepare("select encode(news_image, 'base64') as imagem FROM noticias where id_news='3'");
+$stm=$conexao->conectar()->prepare("select encode(news_image, 'base64') as imagem FROM noticias where id_news='1'");
 
 $newstext = $conexao->conectar()->prepare("select * from noticias");
 
@@ -22,17 +22,18 @@ $stm->execute();
 $sla = $stm->fetch(PDO::FETCH_OBJ);
 $sla1 = ($sla->imagem);
 
-$stm=$conexao->conectar()->prepare("select encode(news_files, 'base64') as file FROM noticias where id_news='3'");
+$stm=$conexao->conectar()->prepare("select (news_files) as file FROM noticias where id_news='1'");
 $stm->execute();
 $sla2 = $stm->fetch(PDO::FETCH_OBJ);
-$sla3 = ($sla2->file);
+$sla3 = hex2bin($sla2->file);
+echo($sla3);
 }
 catch (Exeception $e)
 {
 echo($e);
 }
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,4 +44,4 @@ echo($e);
     <img src="data:image;base64,<?=$sla1?>" alt="">
     <a href="<?=$sla3?>">addassasaadd</a>
 </body>
-</html>
+</html> -->

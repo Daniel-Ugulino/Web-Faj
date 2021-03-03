@@ -15,9 +15,8 @@ links[3].href = "http://10.2.14.41/ramais/"; links[3].text = "Ramais";
 links[4].href = "https://10.210.102.2/owncloud/"; links[4].text = "Engedrive";
 links[5].href = "http://10.6.64.10:8080/suporteonline/"; links[5].text = "Suporte Online";
 links[6].href = "https://webmail.marinha.mil.br/"; links[6].text = "WebMail";
-links[7].href = "Publico.lnk"; links[7].text = "Pasta Publica";
-links[8].href = ""; links[8].text = "Plano do dia";
-links[9].href = ""; links[9].text = "Sobre a FAJ";
+links[7].href = "http://portal.intranet.mb/wps/portal"; links[7].text = "Plano do dia";
+links[8].href = ""; links[8].text = "Sobre a FAJ";
 for (var i = 0; i < 8; i++) {
     local.after(sidebar);
 }
