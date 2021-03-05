@@ -1,6 +1,13 @@
 <?php
 session_start();
 $_SESSION['op'] = "news-select";
+$i = 0;
+foreach($_SESSION['noticia'] as $news)
+{
+  $noticia = $news[0]; 
+  $i++;
+}
+echo($noticia);
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,7 @@
 <?php
 	session_start();
   $y = 0;
-  foreach ($_SESSION['noticias'] as $noticias)
+  foreach ($_SESSION['noticia-menu'] as $noticias)
   {   
       $id[$y] = $noticias[0];
       $titulo[$y] = $noticias[1];
@@ -9,7 +9,6 @@
       $img[$y] = $noticias[3];
       $y++;
   }
-  $_SESSION['op'] = 'news-menu';
 ?>
 
 <!DOCTYPE html>
@@ -40,30 +39,30 @@
 
     <nav class="nav-login">
 
-      <form action="" method="POST" style="display:flex;">
+      <form id="login" style="display:flex;">
         <div style="display:flex; margin-top: 5px;">
 
           <input type="text" id="username" style="border-radius: 7px 0 0 7px;" class="form-control" name="Usuario"
             placeholder="Usuario">
-          <input type="text" id="key" name="senha" style="border-radius: 0 7px 7px 0; margin-right: 20px;"
+          <input type="password" id="key" style="border-radius: 0 7px 7px 0; margin-right: 20px;"
             class="form-control" placeholder="Senha">
-            <button id="sub" hidden type="submit" disabled></button>
+          <button id="sub" hidden type="submit"></button>
         </div>
-          <label for="sub">
-            <svg aria-hidden="true" data-prefix="far" data-icon="caret-square-right" style="margin-top: 6.5px;"
-              class="svg-inline--fa fa-caret-square-right fa-w-14" viewBox="0 0 448 512">
-              <path
-                d="M176 354.9V157.1c0-10.7 13-16.1 20.5-8.5l98.3 98.9c4.7 4.7 4.7 12.2 0 16.9l-98.3 98.9c-7.5 7.7-20.5 2.3-20.5-8.4zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
-              </path>
-            </svg>
-          </label>
+        <label for="sub">
+          <svg aria-hidden="true" data-prefix="far" data-icon="caret-square-right" style="margin-top: 6.5px;"
+            class="svg-inline--fa fa-caret-square-right fa-w-14" viewBox="0 0 448 512">
+            <path
+              d="M176 354.9V157.1c0-10.7 13-16.1 20.5-8.5l98.3 98.9c4.7 4.7 4.7 12.2 0 16.9l-98.3 98.9c-7.5 7.7-20.5 2.3-20.5-8.4zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
+            </path>
+          </svg>
+        </label>
       </form>
 
     </nav>
 
   </nav>
 
-  <div class="container-fluid">
+  <div class="container-fluid" id="noticia">
 
     <!--News Header-->
     <div class="row d-flex justify-content-center" style="margin-top: 10px;">
@@ -82,7 +81,7 @@
 
         <div class="carousel-inner">
 
-          <div class="carousel-item active justify-content-center" id="<?=$id[0]?>">
+          <div class="carousel-item active justify-content-center" id="<?=$news[0][0]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[0]?></h5>
@@ -92,7 +91,7 @@
             </div>
           </div>
 
-          <div class="carousel-item" id="1">
+          <div class="carousel-item" id="<?=$id[1]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[1]?></h5>
@@ -102,13 +101,13 @@
             </div>
           </div>
 
-          <div class="carousel-item" id="2">
+          <div class="carousel-item" id="<?=$id[2]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[2]?></h5>
                 <p><?=$subtitulo[2]?></p>
               </div>
-              <img src="Arquivos\Imagens\images.png" >
+              <img src="Arquivos\Imagens\images.png">
             </div>
           </div>
 
@@ -116,40 +115,40 @@
       </div>
     </div>
     <!--Cards News-->
-    <!-- <form action="sla.php" method="POST" id="cardForm"> -->
+    <form action="sla.php" method="POST" id="cardForm">
       <div class="row d-flex justify-content-center">
 
-        <div class="card" id="3" style="height: 225px;">
+        <div class="card" id="<?=$id[3]?>" style="height: 225px;">
           <img src="Arquivos/Icones/emgepron-logo-2.png" class="card-img-top">
           <div class="card-body">
             <p class="card-text" style="text-decoration: none;">
-            <?=$subtitulo[3]?></p>
+              <?=$subtitulo[3]?></p>
           </div>
         </div>
 
-        <div class="card" id="4" style="height: 225px;">
+        <div class="card" id="<?=$id[4]?>" style="height: 225px;">
           <img src="Arquivos/Icones/emgepron-logo-2.png" class="card-img-top">
           <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[3]?></p>
+            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[4]?></p>
           </div>
         </div>
 
-        <div class="card" id="5" style="height: 225px;">
+        <div class="card" id="<?=$id[5]?>" style="height: 225px;">
           <img src="Arquivos/Icones/emgepron-logo-2.png" class="card-img-top">
           <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[3]?>s</p>
+            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[5]?>s</p>
           </div>
         </div>
 
-        <div class="card" id="6" style="height: 225px;">
+        <div class="card" id="<?=$id[6]?>" style="height: 225px;">
           <img src="Arquivos/Icones/emgepron-logo-2.png" class="card-img-top">
           <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[3]?></p>
+            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[6]?></p>
           </div>
         </div>
 
       </div>
-
+    </form>
     <!--Cards News Pagination-->
     <nav class="d-flex justify-content-center" style="margin-top:10px">
       <ul class="pagination">
@@ -165,38 +164,12 @@
         <li class="page-item"><a class="page-link">10</a></li>
       </ul>
     </nav>
-    
   </div>
-
-  <script>
-
-    var sla3 = document.getElementsByClassName("page-link");
-    var pageNews = [];
-    for (var i = 0; i < sla3.length; i++) {
-      pageNews[i];
-      console.log(pageNews[i]);
-    }
-
-    var cards = [];
-    for (var i = 0; i < 7; i++) {
-      cards[i];
-      var ids = document.getElementById([i]);
-      ids.addEventListener('click', function () {
-
-        var SelectedNews = this.id;
-        fds = document.getElementById("fake") //  fazer variavel de sessão para armazenar o valor da noticia selecionada / 
-        fds.setAttribute("value", SelectedNews)
-        fds.setAttribute("name", "sla");
-        sdf = document.getElementById("cardForm");
-        sdf.submit();
-      });
-    }
-  </script>
 
   <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
   <script src="javascript/js/bootstrap.min.js"></script>
-
+  <script src="javascript/posts.js"></script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <form action="php/insertnews.php" method="POST" enctype="multipart/form-data" id="cadastrar">
+  <form enctype="multipart/form-data" id="cadastrar">
 
     <nav class="navbar sticky-top" id="navbar">
       <nav>
@@ -28,7 +28,7 @@
         <a href="main.html"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
       </nav>
       <nav style="display: flex;">
-        <h5 class="User-text"id="date">Sla quem </h5>
+        <h5 class="User-text" id="date">Sla quem </h5>
         <button type="submit" class=publicarN name="submit">Publicar</button>
       </nav>
     </nav>
@@ -36,8 +36,10 @@
     <div class="container-fluid">
       <div class="row d-flex justify-content-center">
         <div class="Cn-Cabeçalho">
-          <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required maxlength="12">
-          <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required maxlength="70">
+          <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required
+            maxlength="12">
+          <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required
+            maxlength="70">
           <input type="file" name="file" id="news-file" class="inputfile" onchange="File_Name()">
 
           <label for="news-file" class="file-input" id="filelabel" style="overflow: hidden;">Anexar Arquivos</label>
@@ -49,19 +51,20 @@
 
         <div class="img-input-box d-flex justify-content-center" id="img-preview" onclick="deletes()">
 
-          <input  type="file" accept="image/*" id="news-image" required class="inputfile" onchange="preview()" name="images">
+          <input type="file" accept="image/*" id="news-image" required class="inputfile" onchange="preview()"
+            name="images">
           <label for="news-image" class="Nimg" id="Nimg">Selecionar Imagem</label>
           <img src="" alt="" id="previews" class="preview-img" style="display: none;">
-          
+
         </div>
 
-        <textarea name="p1-noticia" id="" cols="30" rows="10" wrap="hard" class="p_noticia1" maxlength="1180"
+        <textarea name="p1noticia" id="p1noticia" cols="30" rows="10" wrap="hard" class="p_noticia1" maxlength="1180"
           placeholder="Escreva o texto aqui. Máximo de :1180 caracteres" required></textarea>
 
       </div>
       <div class="row justify-content-center">
 
-        <textarea name="p2-noticia" id="" cols="30" rows="10" wrap="hard" class="p_noticia2" maxlength="740"
+        <textarea name="p2noticia" id="p2noticia" cols="30" rows="10" wrap="hard" class="p_noticia2" maxlength="740"
           placeholder="Escreva o texto aqui. Máximo de :740 caracteres"></textarea>
       </div>
 
@@ -69,13 +72,14 @@
         <img src="Arquivos\Icones\FAJCMC-Sem-fundo.png" alt="" class="Logo-Faj">
       </div>
     </div>
-    
+
   </form>
 
   <script src="javascript/file_name.js"></script>
   <script src="javascript/img-preload.js"></script>
   <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
+
 
   <script>
     window.onload = function () {
@@ -84,7 +88,25 @@
       $dia.innerText = $sla.getDate() + "/" + $sla.getMonth() + "/" + $sla.getFullYear();;
     };
   </script>
+
   <script src="javascript/js/bootstrap.min.js"></script>
+  <script src="javascript/posts.js"></script>
+  <script>
+
+    // $(document).ready(function(){
+    //     $("#cadastrar").on("submit", function(event){
+    //         event.preventDefault();
+
+    //         var formValues= $(this).serialize();
+    //         console.log(formValues);
+    //         $.post("php/functions.php", formValues, function(data){
+    //             // Display the returned data in browser
+    //             $("#result").html(data);
+    //         });
+    //     });
+    // });
+
+  </script>
 </body>
 
 </html>
