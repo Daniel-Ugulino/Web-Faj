@@ -27,9 +27,10 @@
     width: 73%; 
 }
 .slide-text{
-    margin-top: 100px;
+    margin-top: 85px;
     color:white;
     width: 27%;
+    
 }
 .slide:hover {
     box-shadow: 1px 1px 10px 2px black;
@@ -42,16 +43,16 @@
 }
 .card img {
     height: 90px;
-    border-radius: 10px;
     border-radius: 10px 10px 0 0;
     background-color: #fff;
 }
 .card {
     width: 200px;
+    height: 230px;
     background-color: #5d57bb;
     background-image: linear-gradient(180deg, #5d57bb 0%, #5ea0d6 100%); 
     margin: 24px 21px 0 21px;
-    font-size: 12.5px;
+    font-size: 0.9rem;
     border-radius: 10px;
     color: #fff;
     border-color: #fff;

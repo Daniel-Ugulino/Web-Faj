@@ -2,12 +2,7 @@
 session_start();
 $_SESSION['op'] = "news-select";
 $i = 0;
-foreach($_SESSION['noticia'] as $news)
-{
-  $noticia = $news[0]; 
-  $i++;
-}
-echo($noticia);
+
 ?>
 
 <!DOCTYPE html>
@@ -59,47 +54,27 @@ echo($noticia);
 
   <div class="container-fluid">
     <div class="Cabeçalho">
-      <h2>Titulo</h2>
+      <h2><?=$titulo?></h2>
       <h5>Sla quem 10/10/2010</h5>
     </div>
     <div class="row d-flex justify-content-center">
-      <img src="Arquivos\Imagens\as1.jpeg" alt="" class="news-img w-100">
-      <p class="news-paragraph1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, quibusdam
-        veritatis.
-        Repellendus tenetur, possimus praesentium porro repudiandae harum eum sequi aliquam odio amet, maxime
-        explicabo! Eligendi, sapiente? Atque, non dicta!Lore Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Ad, praesentium nesciunt deleniti, ipsum natus facere fugit sit alias, temporibus sunt quod cumque. A ipsum
-        quaerat ad numquam. Eligendi, inventore. Et! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde
-        impedit fugit consectetur quis perferendis velit aperiam, nostrum perspiciatis quidem nisi. Dolorem mollitia
-        sunt quisquam facere consectetur ratione impedit dicta autem. Lorem ipsum dolor sit, amet consectetur
-        adipisicing elit. Illum, in delectus. Vitae rem accusantium quod asperiores. Corporis autem ab voluptatem eos
-        repudiandae obcaecati tempora vitae provident rerum. Eum, nisi sapiente? Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Laborum magnam obcaecati quod ipsam qui voluptate odio earum dolore corporis?
-        Tempora aspernatur a tempore? Reiciendis fugit adipisci eveniet veniam ad quasi! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Consectetur praesentium, veniam, vel non cumque magnam rerum iure id a possimus
-        molestias, esse ipsum sapiente nulla alias quisquam dicta maxime. Quibusdam. Lorem ipsum dolor sit amet
-        consectetur, adipisicing elit. Expedita a odit, qui perferendis ad quisquam</p>
+      <img src="<?=$img?>" alt="" class="news-img w-100">
+      <p class="news-paragraph1"><?=$p1?></p>
     </div>
     <div class="row justify-content-center">
-      <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia blanditiis quia et
-        impedit atque ipsa sunt,
-        natus aperiam assumenda ab voluptas culpa repellat cupiditate consectetur saepe veritatis tenetur quas nisi!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur saepe necessitatibus quas doloremque.
-        Suscipit in beatae aliquid, assumenda nobis saepe culpa officiis illo. Tempore nemo sint quasi, corporis sit ab?
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga soluta delectus harum explicabo debitis?
-        Praesentium temporibus ex aliquid ab eveniet, aliquam, hic, accusamus expedita voluptas vitae beatae pariatur
-        animi! Explicabo?Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, architecto, laboriosam
-        velit, tenetur nihil laborum perspiciatis voluptatem doloremque similique omnis non cumque? Reiciendis commodi
-        officia soluta explicabo veritatis expedita impedit!</p>
+      <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover"><?=$p2?></p>
     </div>
     <div class="row justify-content-center">
       <img src="Arquivos\Icones\FAJCMC-Sem-fundo.png" alt="" class="Logo-Faj">
+      <a href="<?=$file?>" class="file-text">Clique para obter o pdf da noticia</a>
     </div>
   </div>
 
   <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
   <script src="javascript/js/bootstrap.min.js"></script>
+  <script src="javascript/posts.js"></script>
+
 </body>
 
 </html>

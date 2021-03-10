@@ -21,6 +21,17 @@
     text-align: center;
     color: white;
 }
+.file-text
+{
+    margin-top: 45px;
+    margin-left: 30px;
+    text-align: center;
+    color: white;
+}
+.file-text:hover
+{
+    color: white;
+}
 @media (max-width:1450px) {
     .news-paragraph1 {
         width: 100%;

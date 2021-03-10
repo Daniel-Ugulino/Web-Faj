@@ -37,7 +37,7 @@
       <div class="row d-flex justify-content-center">
         <div class="Cn-Cabeçalho">
           <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required
-            maxlength="12">
+            maxlength="27">
           <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required
             maxlength="70">
           <input type="file" name="file" id="news-file" class="inputfile" onchange="File_Name()">
@@ -75,7 +75,7 @@
 
   </form>
 
-  <script src="javascript/file_name.js"></script>
+  <script src="javascript/files-preview.js"></script>
   <script src="javascript/img-preload.js"></script>
   <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>

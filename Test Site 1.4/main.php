@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/public.css">
 </head>
 
-<body id="noticia" >
+<body id="noticia">
 
   <nav class="navbar sticky-top" id="navbar">
     <nav>
@@ -44,8 +44,8 @@
 
           <input type="text" id="username" style="border-radius: 7px 0 0 7px;" class="form-control" name="Usuario"
             placeholder="Usuario">
-          <input type="password" id="key" style="border-radius: 0 7px 7px 0; margin-right: 20px;"
-            class="form-control" placeholder="Senha">
+          <input type="password" id="key" style="border-radius: 0 7px 7px 0; margin-right: 20px;" class="form-control"
+            placeholder="Senha">
           <button id="sub" hidden type="submit"></button>
         </div>
         <label for="sub">
@@ -62,7 +62,7 @@
 
   </nav>
 
-  <div class="container-fluid" >
+  <div class="container-fluid">
 
     <!--News Header-->
     <div class="row d-flex justify-content-center">
@@ -81,7 +81,7 @@
 
         <div class="carousel-inner">
 
-          <div class="carousel-item active justify-content-center" id="<?=$news[0][0]?>">
+          <div class="carousel-item news active justify-content-center" id="<?=$id[0]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[0]?></h5>
@@ -91,7 +91,7 @@
             </div>
           </div>
 
-          <div class="carousel-item" id="<?=$id[1]?>">
+          <div class="carousel-item news" id="<?=$id[1]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[1]?></h5>
@@ -101,7 +101,7 @@
             </div>
           </div>
 
-          <div class="carousel-item" id="<?=$id[2]?>">
+          <div class="carousel-item news" id="<?=$id[2]?>">
             <div class="News justify-content-center">
               <div class="slide-text">
                 <h5 style="font-weight: bold;"><?=$titulo[2]?></h5>
@@ -115,32 +115,31 @@
       </div>
     </div>
     <!--Cards News-->
-    <form action="sla.php" method="POST" id="cardForm">
       <div class="row d-flex justify-content-center">
 
-        <div class="card" id="<?=$id[3]?>" style="height: 225px;">
-          <img src="<?=$img[3]?>" class="card-img-top">
+        <div class="card news" id="<?=$id[3]?>" style="height: 225px;">
+          <img src="<?=$img[0]?>" class="card-img-top">
           <div class="card-body">
             <p class="card-text" style="text-decoration: none;">
-              <?=$subtitulo[3]?></p>
+            <?=$subtitulo[0]?></p>
           </div>
         </div>
 
-        <div class="card" id="<?=$id[4]?>" style="height: 225px;">
-          <img src="<?=$img[4]?>" class="card-img-top">
+        <div class="card news" id="<?=$id[4]?>" style="height: 225px;">
+          <img src="<?=$img[1]?>" class="card-img-top">
           <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[4]?></p>
+            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[1]?></p>
           </div>
         </div>
 
-        <div class="card" id="<?=$id[5]?>" style="height: 225px;">
+        <div class="card news" id="<?=$id[5]?>" style="height: 225px;">
           <img src="<?=$img[5]?>" class="card-img-top">
           <div class="card-body">
             <p class="card-text" style="text-decoration: none;"><?=$subtitulo[5]?>s</p>
           </div>
         </div>
 
-        <div class="card" id="<?=$id[6]?>" style="height: 225px;">
+        <div class="card news" id="<?=$id[6]?>" style="height: 225px;">
           <img src="<?=$img[6]?>" class="card-img-top">
           <div class="card-body">
             <p class="card-text" style="text-decoration: none;"><?=$subtitulo[6]?></p>
@@ -148,25 +147,27 @@
         </div>
 
       </div>
-    </form>
     <!--Cards News Pagination-->
     <nav class="d-flex justify-content-center" style="margin-top:10px">
       <ul class="pagination">
-        <li class="page-item"><a class="page-link">1</a></li>
-        <li class="page-item"><a class="page-link">2</a></li>
-        <li class="page-item"><a class="page-link">3</a></li>
-        <li class="page-item"><a class="page-link">4</a></li>
-        <li class="page-item"><a class="page-link">5</a></li>
-        <li class="page-item"><a class="page-link">6</a></li>
-        <li class="page-item"><a class="page-link">7</a></li>
-        <li class="page-item"><a class="page-link">8</a></li>
-        <li class="page-item"><a class="page-link">9</a></li>
-        <li class="page-item"><a class="page-link">10</a></li>
+        <li class="page-item"><a class="page-link" href="">1</a></li>
+        <li class="page-item"><a class="page-link" href="">2</a></li>
+        <li class="page-item"><a class="page-link" href="">3</a></li>
+        <li class="page-item"><a class="page-link" href="">4</a></li>
+        <li class="page-item"><a class="page-link" href="">5</a></li>
+        <li class="page-item"><a class="page-link" href="">6</a></li>
+        <li class="page-item"><a class="page-link" href="">7</a></li>
+        <li class="page-item"><a class="page-link" href="">8</a></li>
+        <li class="page-item"><a class="page-link " href="">9</a></li>
+        <li class="page-item"><a class="page-link" href="news_control.php">10</a></li>
       </ul>
     </nav>
   </div>
 
   <script src="javascript/sidebar.js"></script>
+  <script>
+   
+  </script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
   <script src="javascript/js/bootstrap.min.js"></script>
   <script src="javascript/posts.js"></script>

@@ -2,7 +2,7 @@
 include 'conexao.php';
 session_start();
 
-$op= $_POST["op"];
+$op = $_POST['op'];
 echo($op);
 $conexao= new conexao_banco();
 $conexao->conectar();
@@ -90,15 +90,15 @@ function login()
     $conexao->conectar();
     $stm = $conexao->conectar()->prepare("select * from noticias order by id_news DESC");
     $stm->execute();
-    $stm->fetch(PDO::FETCH_OBJ);
     $news = [];
 
-    foreach($stm as $newsval)
+    
+    while ($newsval = $stm->fetch(PDO::FETCH_OBJ))
     {
-        $news[$i] = array($newsval['id_news'],$newsval['titulo'],$newsval['subtitulo'],$newsval['news_image']);
+        $news[$i] = array($newsval->id_news, $newsval->titulo, $newsval->subtitulo, $newsval->news_image);
         $i++;
     }
-
+    
     $_SESSION['noticia-menu'] = $news;
     }
     
@@ -111,12 +111,13 @@ function login()
 function getnews()
 {
     try{
-        // $id_news = $_POST['id'];
-        
+
         $conexao= new conexao_banco();
         $i = 0;
         $conexao->conectar();
-        $stm = $conexao->conectar()->prepare("select * from noticias where id_news = 2");
+        $_SESSION['id_news'] = $_POST["id"];
+        $selected_news = $_SESSION['id_news'];
+        $stm = $conexao->conectar()->prepare("select * from noticias where id_news = $selected_news");
         $stm->execute();
         $news = [];
         $newsval = $stm->fetch(PDO::FETCH_OBJ);
@@ -137,8 +138,11 @@ function getnews()
         // foreach($_SESSION['noticia'] as $news)
         // {
         // echo($news[]); 
-        // $i++;
+        // $y++;
         // }
+
+
+        echo($selected_news . $news[1]);
         
         }
         catch(Exeception $e)
