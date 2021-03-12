@@ -11,12 +11,19 @@ switch ($op)
     case ("news-create"):
         insert_news();
     break;
+
     case ("logar"):
         login();
     break;
-    case ("news-menu"):
-        news_menu();
+
+    case ("news_menu_carrousel"):
+        news_menu_carrousel();
     break;
+
+    case ("news_menu_card"):
+        news_menu_card();
+    break;
+
     case ("news-select"):
         getnews();
     break;
@@ -91,80 +98,77 @@ function login()
     }
 }
 
-function news_menu()
+function news_menu_carrousel()
 {
     try
     {
         $i = 0;
         $conexao = new conexao_banco();
         $conexao->conectar();
-        $stm = $conexao->conectar()->prepare("select * from noticias order by id_news DESC");
+        $stm = $conexao->conectar()->prepare("select * from noticias order by id_news DESC limit 3");
         $stm->execute();
-        $news = [];
-
-        while ($newsval = $stm->fetch(PDO::FETCH_OBJ))
-        {
-            $news[$i] = array(
-                $newsval->id_news,
-                $newsval->titulo,
-                $newsval->subtitulo,
-                $newsval->news_image
-            );
+        //$news = [];
+        $stm->rowCount();
+        while ($newsval = $stm->fetch(PDO::FETCH_OBJ)){
             if ($i == 0)
             {
-?>
-            <div class="carousel-item news active justify-content-center" id="<?=$news[$i][0] ?>">
-                <div class="News justify-content-center">
-                  <div class="slide-text">
-                    <h5 style="font-weight: bold;"><?=$news[$i][1] ?></h5>
-                    <p><?=$news[$i][2] ?></p>
-                  </div>
-                  <img src="<?=$news[$i][3] ?>">
+            echo ('
+                <div class="carousel-item news active" id="'.$newsval->id_news.'">
+                    <div class="News justify-content-center">
+                    <div class="slide-text">
+                        <h5 style="font-weight: bold;">'.$newsval->titulo.'</h5>
+                        <p><?=$subtitulo[1]?>'.$newsval->subtitulo.'</p>
+                    </div>
+                    <img src="'.$newsval->news_image.'">
+                    </div>
                 </div>
-              </div>
-              <script>
-          var id="Carrousel_News";
-          console.log(id);
-          </script>
-            <?php
-            }
-            else if ($i > 0 && $i <= 2)
-            {
-?>
-            <div class="carousel-item news justify-content-center" id="<?=$news[$i][0] ?>">
-                <div class="News justify-content-center">
-                  <div class="slide-text">
-                    <h5 style="font-weight: bold;"><?=$news[$i][1] ?></h5>
-                    <p><?=$news[$i][2] ?></p>
-                  </div>
-                  <img src="<?=$news[$i][3] ?>">
+            ');
+            } else if($i > 0 && $i <= 2){
+                echo ('
+                <div class="carousel-item news" id="'.$newsval->id_news.'">
+                    <div class="News justify-content-center">
+                    <div class="slide-text">
+                        <h5 style="font-weight: bold;">'.$newsval->titulo.'</h5>
+                        <p><?=$subtitulo[1]?>'.$newsval->subtitulo.'</p>
+                    </div>
+                    <img src="'.$newsval->news_image.'">
+                    </div>
                 </div>
-              </div>
-              <script>
-          var id="Carrousel_News";
-          </script>
-            <?php
-            }
-            else if ($i > 2 && $i < 7)
-            {
-?>
-            <div class="card news" id="<?=$news[$i][0] ?>">
-            <img src="<?=$news[$i][3] ?>" class="card-img-top card-img">
-            <div class="card-body">
-              <p class="card-text" style="text-decoration: none;">
-              <?=$news[$i][1] ?></p>
-            </div>
-          </div>
-          <script>
-          var id="Card_News";
-          </script>
-          <?php
-            }
+            ');        
+            };
             $i++;
-        }
-
+        };
     }
+    catch(Exeception $e)
+    {
+        echo ($e);
+    }
+}
 
+function news_menu_card()
+{
+    try
+    {
+        $i = 0;
+        $conexao = new conexao_banco();
+        $conexao->conectar();
+        $stm = $conexao->conectar()->prepare("select * from (select id_news,subtitulo,news_image, ROW_NUMBER() OVER(ORDER BY id_news) as teste from  noticias order by id_news) as orders where teste > 3");
+        $stm->execute();
+        //$news = [];
+        while ($newsval = $stm->fetch(PDO::FETCH_OBJ)){
+            if($i<=3)
+            {
+                echo ('
+                <div class="card news" id="'. $newsval->id_news .'">
+                <img src="'. $newsval->news_image .'" class="card-img-top card-img">
+                <div class="card-body">
+                  <p class="card-text" style="text-decoration: none;">'. $newsval->subtitulo .'</p>
+                </div>
+              </div>');
+            } 
+          $i++;
+        };
+    }
     catch(Exeception $e)
     {
         echo ($e);

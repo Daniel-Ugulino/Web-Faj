@@ -12,6 +12,7 @@ $("#cadastrar").submit(function (e) {
 		contentType: false,
 		success: function (data) {
 			alert("Noticia criada com sucesso");
+			
 		}, error: function (xhr, ajaxOptions, thrownError) {
 			alert("ERROR:" + xhr.responseText + " - " + thrownError);
 		}
@@ -39,6 +40,33 @@ $("#login").submit(function (e) {
 });
 
 
+$(document).ready(function () {
+	setInterval( function () {
+		listar_noticia();
+	}, 15000 );
+	function listar_noticia() {
+		$.ajax({
+			type: "POST",
+			url: "php/functions.php",
+			data: { op: "news_menu_carrousel" },
+			datatype: "html",
+			success: function (data) {
+				$("#Carrousel_News").html(data);
+			}
+		});
+		$.ajax({
+			type: "POST",
+			url: "php/functions.php",
+			data: { op: "news_menu_card" },
+			datatype: "html",
+			success: function (data) {
+				$("#Card_News").html(data);
+			}
+		});
+	}
+	listar_noticia();
+});
+
 
 var elements = document.getElementsByClassName("news");
 console.log(elements);
@@ -65,20 +93,3 @@ for (var i = 0; i < elements.length; i++) {
 }
 
 
-$(document).ready(function () {
-	function listar_noticia() {
-		$.ajax({
-			type: "POST",
-			url: "php/functions.php",
-			data: { op: "news-menu" },
-			datatype: "html",
-			success: function (data) {
-				if (id = "Carrousel_News") {
-					$("#Carrousel_News").html(data);
-				}
-				console.log(id);
-			}
-		});
-	}
-	listar_noticia();
-});
