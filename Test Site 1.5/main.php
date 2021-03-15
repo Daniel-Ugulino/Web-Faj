@@ -59,7 +59,7 @@
 
     <!--Carrousel News-->
     <div class="row d-flex justify-content-center">
-    
+
       <div id="MainNews" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#MainNews" data-slide-to="0" class="active"></li>
@@ -68,43 +68,16 @@
         </ol>
 
         <div class="carousel-inner" id="Carrousel_News">
+    
         </div>
-
+        
       </div>
     </div>
     <!--Cards News-->
-      <div class="row d-flex justify-content-center" id="Card_News">
+    <div class="row d-flex justify-content-center" id="Card_News">
 
-        <div class="card news" id="<?=$id[3]?>">
-          <img src="<?=$img[0]?>" class="card-img-top">
-          <div class="card-body">
-            <p class="card-text" style="text-decoration: none;">
-            <?=$subtitulo[0]?></p>
-          </div>
-        </div>
 
-        <div class="card news" id="<?=$id[4]?>">
-          <img src="<?=$img[1]?>" class="card-img-top">
-          <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[1]?></p>
-          </div>
-        </div>
-
-        <div class="card news" id="<?=$id[5]?>">
-          <img src="<?=$img[5]?>" class="card-img-top">
-          <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[5]?>s</p>
-          </div>
-        </div>
-
-        <div class="card news" id="<?=$id[6]?>">
-          <img src="<?=$img[6]?>" class="card-img-top">
-          <div class="card-body">
-            <p class="card-text" style="text-decoration: none;"><?=$subtitulo[6]?></p>
-          </div>
-        </div>
-
-      </div>
+    </div>
     <!--Cards News Pagination-->
     <nav class="d-flex justify-content-center" style="margin-top:10px">
       <ul class="pagination">
@@ -117,15 +90,12 @@
         <li class="page-item"><a class="page-link" href="">7</a></li>
         <li class="page-item"><a class="page-link" href="">8</a></li>
         <li class="page-item"><a class="page-link " href="">9</a></li>
-        <li class="page-item"><a class="page-link" href="news_control.php">10</a></li>
+        <li class="page-item"><a class="page-link" href="create-news.php">10</a></li>
       </ul>
     </nav>
   </div>
 
   <script src="javascript/sidebar.js"></script>
-  <script>
-   
-  </script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
   <script src="javascript/js/bootstrap.min.js"></script>
   <script src="javascript/posts.js"></script>

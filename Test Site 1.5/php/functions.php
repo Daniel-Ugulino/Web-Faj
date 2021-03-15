@@ -94,7 +94,7 @@ function login()
     {
         $userData = $stm->fetch(PDO::FETCH_OBJ);
         $_SESSION['user_id'] = $userData->id_user;
-        header('Location: ../create-news.php');
+        return true;
     }
 }
 
@@ -149,10 +149,18 @@ function news_menu_card()
 {
     try
     {
+        $lastN = 0;
         $i = 0;
         $conexao = new conexao_banco();
         $conexao->conectar();
-        $stm = $conexao->conectar()->prepare("select * from (select id_news,subtitulo,news_image, ROW_NUMBER() OVER(ORDER BY id_news) as teste from  noticias order by id_news) as orders where teste > 3");
+
+        $id = $conexao->conectar()->prepare("select MAX(id_news) as last from noticias ");
+        $id->execute();
+        while ($last = $id->fetch(PDO::FETCH_OBJ)){
+            $lastN = $last->last - 3;
+        };
+     
+        $stm = $conexao->conectar()->prepare("select * from noticias where id_news <= $lastN  order by id_news DESC ");
         $stm->execute();
         //$news = [];
         while ($newsval = $stm->fetch(PDO::FETCH_OBJ)){
@@ -179,12 +187,9 @@ function getnews()
 {
     try
     {
-
         $conexao = new conexao_banco();
-        $i = 0;
         $conexao->conectar();
-        $_SESSION['id_news'] = $_POST["id"];
-        $selected_news = $_SESSION['id_news'];
+        $selected_news = $_POST["id"];
         $stm = $conexao->conectar()->prepare("select * from noticias where id_news = $selected_news");
         $stm->execute();
         $news = [];
@@ -208,9 +213,8 @@ function getnews()
         // echo($news[]);
         // $y++;
         // }
-        
-
-        echo ($selected_news . $news[1]);
+        echo($op);
+        echo ($selected_news . $news[1] . $op);
 
     }
     catch(Exeception $e)

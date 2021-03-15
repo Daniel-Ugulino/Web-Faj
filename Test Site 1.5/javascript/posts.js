@@ -12,13 +12,13 @@ $("#cadastrar").submit(function (e) {
 		contentType: false,
 		success: function (data) {
 			alert("Noticia criada com sucesso");
-			
+			$("#cadastrar")[0].reset()
+
 		}, error: function (xhr, ajaxOptions, thrownError) {
 			alert("ERROR:" + xhr.responseText + " - " + thrownError);
 		}
 	});
 });
-
 
 $("#login").submit(function (e) {
 
@@ -39,12 +39,69 @@ $("#login").submit(function (e) {
 	});
 });
 
+var url = window.location.pathname;
+var filename = url.substring(url.lastIndexOf('/')+1);
+if (filename = "main.php")
+{
+	function getids() {
+		var elements = document.getElementsByClassName("news");
+	
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].addEventListener('click', function () {
+				var attribute = this.getAttribute("id");
+	
+				$.ajax({
+					type: "POST",
+					url: "php/functions.php",
+					data: {
+						op: "news-select",
+						id: attribute
+					},
+					datatype: "html",
+					success: function (data) {
+						window.location.href = "news.php";
+						$(document).html(data);
+					}
+				});
+			})
+		}
+	}
 
-$(document).ready(function () {
-	setInterval( function () {
-		listar_noticia();
-	}, 15000 );
-	function listar_noticia() {
+	$(document).ready(function () {
+		setInterval(function () {
+			listar_noticia();
+		}, 50000);
+	
+		function listar_noticia() {
+			$.ajax({
+				type: "POST",
+				url: "php/functions.php",
+				data: { op: "news_menu_carrousel" },
+				datatype: "html",
+				success: function (data) {
+					$("#Carrousel_News").html(data);
+				}
+			});
+			$.ajax({
+				type: "POST",
+				url: "php/functions.php",
+				data: { op: "news_menu_card" },
+				datatype: "html",
+				success: function (data) {
+					$("#Card_News").html(data);
+					getids();
+	
+				}
+			});
+		}
+	
+		listar_noticia()
+		
+	});	
+}
+else if(filename = "news.php")
+{
+	function mostrar_noticia() {
 		$.ajax({
 			type: "POST",
 			url: "php/functions.php",
@@ -54,42 +111,6 @@ $(document).ready(function () {
 				$("#Carrousel_News").html(data);
 			}
 		});
-		$.ajax({
-			type: "POST",
-			url: "php/functions.php",
-			data: { op: "news_menu_card" },
-			datatype: "html",
-			success: function (data) {
-				$("#Card_News").html(data);
-			}
-		});
-	}
-	listar_noticia();
-});
-
-
-var elements = document.getElementsByClassName("news");
-console.log(elements);
-
-var myFunction = function () {
-	var attribute = this.getAttribute("id");
-
-	$.ajax({
-		type: "POST",
-		url: "php/functions.php",
-		data: {
-			op: "news-select",
-			id: attribute
-		},
-		datatype: "html",
-		success: function (data) {
-			window.location.href = "news.php";
-		}
-	});
-};
-
-for (var i = 0; i < elements.length; i++) {
-	elements[i].addEventListener('click', myFunction, false);
 }
-
+}
 

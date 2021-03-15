@@ -34,6 +34,8 @@
 }
 .slide:hover {
     box-shadow: 1px 1px 10px 2px black;
+    cursor: pointer;
+
 }
 .carousel-indicators > li {
     background-color: white;
@@ -61,6 +63,8 @@
 }
 .card:hover {
     box-shadow: 1px 1px 10px 2px #0b090a;
+    cursor: pointer;
+
 }
 
 .News {

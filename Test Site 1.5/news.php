@@ -58,15 +58,15 @@ $i = 0;
       <h5>Sla quem 10/10/2010</h5>
     </div>
     <div class="row d-flex justify-content-center">
-      <img src="<?=$img?>" alt="" class="news-img w-100">
-      <p class="news-paragraph1"><?=$p1?></p>
+      <img src="" alt="" class="news-img w-100">
+      <p class="news-paragraph1"></p>
     </div>
     <div class="row justify-content-center">
-      <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover"><?=$p2?></p>
+      <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover"></p>
     </div>
     <div class="row justify-content-center">
       <img src="Arquivos\Icones\FAJCMC-Sem-fundo.png" alt="" class="Logo-Faj">
-      <a href="<?=$file?>" class="file-text">Clique para obter o pdf da noticia</a>
+      <a href="" class="file-text">Clique para obter o pdf da noticia</a>
     </div>
   </div>
 
