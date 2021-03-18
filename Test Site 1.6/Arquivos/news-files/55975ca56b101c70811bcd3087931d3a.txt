@@ -1,6 +1,0 @@
-   margin-left: 270px;
-    border-style: hidden;
-    background-color: transparent;
-    border-bottom: 3px solid #ffffff;
-    height: 40px;
-    color: #ffffff;
