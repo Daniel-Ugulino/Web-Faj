@@ -13,21 +13,19 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top" id="navbar">
-      <nav>
-        <svg aria-hidden="true" data-prefix="fas" data-icon="bars" onclick="ActiveSidebar()"
-          class="svg-inline--fa fa-bars fa-w-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-          <path
-            d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
-          </path>
-        </svg>
-        <a href="main.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
-      </nav>
-      <nav style="display: flex;">
-        <h5 class="User-text">Sla quem 10/10/2021</h5>
-        <a href="create-news.php"><button type="button" class=CreateNews>Novo</button></a>
-      </nav>
+  <nav class="navbar sticky-top" id="navbar">
+    <nav>
+      <svg aria-hidden="true" data-prefix="fas" data-icon="bars" onclick="ActiveSidebar()" class="svg-inline--fa fa-bars fa-w-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
+        </path>
+      </svg>
+      <a href="main.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
     </nav>
+    <nav style="display: flex;">
+      <h5 class="User-text">Sla quem 10/10/2021</h5>
+      <a href="create-news.php"><button type="button" class=CreateNews>Novo</button></a>
+    </nav>
+  </nav>
 
   <div class="container-fluid">
     <div class="row d-flex justify-content-center">
@@ -120,7 +118,7 @@
     <nav class="d-flex justify-content-center" style="margin-top:55px;">
       <ul class="pagination">
         <li class="page-item"><a class="page-link">1</a></li>
-        <li class="page-item"><a class="page-link" >2</a></li>
+        <li class="page-item"><a class="page-link">2</a></li>
         <li class="page-item"><a class="page-link">3</a></li>
         <li class="page-item"><a class="page-link">4</a></li>
         <li class="page-item"><a class="page-link">5</a></li>
@@ -134,7 +132,7 @@
   </div>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#datepicker').datepicker();
     });
 
@@ -147,7 +145,6 @@
       y.setAttribute("placeholder", x);
       console.log(x, y.setAttribute("value", x));
     }
-
   </script>
 
   <script src="javascript/sidebar.js"></script>

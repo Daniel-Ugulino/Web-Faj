@@ -28,7 +28,7 @@
         <a href="main.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
       </nav>
       <nav style="display: flex;">
-        <h5 class="User-text" id="date">Sla quem </h5>
+        <h5 class="User-text" id="date"></h5>
         <button type="submit" class=publicarN name="submit">Publicar</button>
       </nav>
     </nav>
@@ -37,12 +37,12 @@
       <div class="row d-flex justify-content-center">
         <div class="Cn-Cabeçalho">
           <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required
-            maxlength="27">
+            maxlength="35">
           <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required
-            maxlength="70">
+            maxlength="100">
           <input type="file" name="file" id="news-file" class="inputfile" onchange="File_Name()">
 
-          <label for="news-file" class="file-input" id="filelabel" style="overflow: hidden;">Anexar Arquivos</label>
+          <label for="news-file" class="doc-input" id="filelabel" style="overflow: hidden;">Anexar Arquivos</label>
 
         </div>
       </div>
@@ -58,13 +58,13 @@
 
         </div>
 
-        <textarea name="p1noticia" id="p1noticia" cols="30" rows="10" wrap="hard" class="p_noticia1" maxlength="1180"
+        <textarea name="p1noticia" id="p1noticia" cols="30" rows="10" class="p_noticia1"
           placeholder="Escreva o texto aqui. Máximo de :1180 caracteres" required></textarea>
 
       </div>
       <div class="row justify-content-center">
 
-        <textarea name="p2noticia" id="p2noticia" cols="30" rows="10" wrap="hard" class="p_noticia2" maxlength="740"
+        <textarea name="p2noticia" id="p2noticia" cols="30" rows="10" class="p_noticia2" maxlength="740"
           placeholder="Escreva o texto aqui. Máximo de :740 caracteres"></textarea>
       </div>
 
@@ -76,10 +76,10 @@
   </form>
 
   <script src="javascript/files-preview.js"></script>
-  <script src="javascript/img-preload.js"></script>
   <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
-
+  <script src="javascript/js/bootstrap.min.js"></script>
+  <script src="javascript/posts.js"></script>
 
   <script>
     window.onload = function () {
@@ -89,24 +89,6 @@
     };
   </script>
 
-  <script src="javascript/js/bootstrap.min.js"></script>
-  <script src="javascript/posts.js"></script>
-  <script>
-
-    // $(document).ready(function(){
-    //     $("#cadastrar").on("submit", function(event){
-    //         event.preventDefault();
-
-    //         var formValues= $(this).serialize();
-    //         console.log(formValues);
-    //         $.post("php/functions.php", formValues, function(data){
-    //             // Display the returned data in browser
-    //             $("#result").html(data);
-    //         });
-    //     });
-    // });
-
-  </script>
 </body>
 
 </html>

@@ -1,0 +1,29 @@
+<div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Alteração de senha</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+
+            <form action="" id="up_key">
+                <div class="modal-body" style="display: block;" onkeyup="upkey()">
+                    <div class="justify-content-center old_key"><label>Insira a senha atual:</label>
+                        <input type="password" class="key_input" style="margin-left: 5%;" id="old_key">
+                    </div>
+                    <div class="justify-content-center old_key " style="display: flex; "><label>Insira a nova senha:</label>
+                        <input type="password" class="key_input" style="margin-left: 5%;" id="new_key">
+                    </div>
+                    <div class="justify-content-center new_key " style="display: flex; "><label>Confirme a senha:</label>
+                        <input type="password" class="key_input" style="margin-left: 8%;" id="new_key_confirm">
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="submit" id="sub_key" class="btn btn-primary " disabled>Salvar alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

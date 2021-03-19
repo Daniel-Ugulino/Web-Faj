@@ -1,10 +1,3 @@
-<?php
-session_start();
-$_SESSION['op'] = "news-select";
-$i = 0;
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +20,7 @@ $i = 0;
           d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
         </path>
       </svg>
-      <a href="main.html"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
+      <a href="main.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
     </nav>
 
     <nav class="nav-login">
@@ -52,22 +45,8 @@ $i = 0;
     </nav>
   </nav>
 
-  <div class="container-fluid">
-    <div class="Cabeçalho">
-      <h2><?=$titulo?></h2>
-      <h5>Sla quem 10/10/2010</h5>
-    </div>
-    <div class="row d-flex justify-content-center">
-      <img src="" alt="" class="news-img w-100">
-      <p class="news-paragraph1"></p>
-    </div>
-    <div class="row justify-content-center">
-      <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover"></p>
-    </div>
-    <div class="row justify-content-center">
-      <img src="Arquivos\Icones\FAJCMC-Sem-fundo.png" alt="" class="Logo-Faj">
-      <a href="" class="file-text">Clique para obter o pdf da noticia</a>
-    </div>
+  <div class="container-fluid" id="News_content">
+
   </div>
 
   <script src="javascript/sidebar.js"></script>

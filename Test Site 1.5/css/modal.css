@@ -1,0 +1,14 @@
+.old_key {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.new_key {
+    display: flex;
+}
+
+.key_input {
+    background-color: transparent;
+    border-style: hidden;
+    border-bottom: 3px solid;
+}
