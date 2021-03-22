@@ -30,6 +30,10 @@ switch ($op) {
     case ("update_key"):
         update_key();
         break;
+
+    case ("card_control"):
+        news_control_card();
+        break;
 }
 
 function insert_news()
@@ -220,6 +224,7 @@ function getnews()
         echo ($e);
     }
 }
+
 function update_key()
 {
     try {
@@ -237,5 +242,52 @@ function update_key()
         }
     } catch (Exception $e) {
         echo ("<script>alert('Senha alterada com sucesso');</script>");
+    }
+}
+
+function news_control_card()
+{
+    try {
+        $lastN = 0;
+        $i = 0;
+        $conexao = new conexao_banco();
+        $conexao->conectar();
+        $pages = 0;
+
+        if (isset($_POST["page_index"])) {
+            $pages = $_POST["page_index"];
+        }
+
+
+        if (isset($_POST["date"]) || isset($_POST["name"])) {
+            $publi_date = $_POST["date"];
+            $name = $_POST["name"];
+            
+            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where titulo like '%".$name."%'");
+        }
+        else
+        {
+            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user order by id_news DESC" );
+        }
+        $stm->execute();
+
+        while ($newsval = $stm->fetch(PDO::FETCH_OBJ)) {
+            if ($i <= 4) {
+                echo ('
+                <div class="card news" id="' . $newsval->id_news . '">
+                <img src="' . $newsval->news_image . '" class="card-img-top card-img">
+                <div class="card-body">
+                <p style="text-align: center;">' . $newsval->titulo . '</p>
+                <p class="card-text" style="text-decoration: none;">' . $newsval->subtitulo . '</p>
+                <div>
+                <p style="text-align: center;">' . $newsval->username . ' ' . $newsval->post_day . '</p>
+                </div>
+                </div>
+              </div>');
+            }
+            $i++;
+        };
+    } catch (Exception $e) {
+        echo ($e);
     }
 }

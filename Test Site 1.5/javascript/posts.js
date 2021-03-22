@@ -39,14 +39,14 @@ $("#login").submit(function(e) {
         datatype: "html",
         success: function(data) {
             if (data == 1) {
-                window.location.href = "create-news.php";
+                window.location.href = "news_control.php";
             } else if (data == 2) {
                 $(document).ready(function() {
                     $('#update_modal').modal('show');
                     update();
                 });
             } else {
-                $("#Carrousel_News").alert('conta ou senha errada')
+                alert('Usuario ou senha erradas')
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -161,6 +161,48 @@ if (filename == "news.php") {
     })
 }
 
+if (filename == "news_control.php") {
+    $(document).ready(function() {
+        function card_control_show() {
+            $.ajax({
+                type: "POST",
+                url: "php/functions.php",
+                data: {
+                    op: "card_control",
+                    date: $("#date_filter").val(),
+                    name: $("#name_filter").val()
+                },
+                datatype: "html",
+                success: function(data) {
+                    $("#card_control").html(data);
+
+                }
+            });
+        }
+        card_control_show();
+    })
+
+    $("#news_filter").keyup(function() {
+        function card_control_show() {
+            $.ajax({
+                type: "POST",
+                url: "php/functions.php",
+                data: {
+                    op: "card_control",
+                    date: $("#date_filter").val(),
+                    name: $("#name_filter").val()
+                },
+                datatype: "html",
+                success: function(data) {
+                    $("#card_control").html(data);
+
+                }
+            });
+        }
+        card_control_show();
+    })
+}
+
 function upkey() {
     if ($("#new_key").val() != "" && $("#old_key").val() != "") {
         if ($("#new_key").val() == $("#new_key_confirm").val()) {
@@ -187,7 +229,7 @@ function update() {
             success: function(data_up) {
                 if (data_up == 1) {
                     alert("Senha alterada com sucesso");
-                    window.location.href = "create-news.php";
+                    window.location.href = "news_control.php";
                 } else if (data_up == 2) {
                     alert('A senha anterior está errada')
                 }
@@ -199,4 +241,8 @@ function update() {
         });
 
     });
+}
+
+function news_filter() {
+
 }

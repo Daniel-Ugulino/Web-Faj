@@ -1,4 +1,5 @@
 <?php
+session_unset();
 session_cache_expire(15);
 session_start();
 ?>
