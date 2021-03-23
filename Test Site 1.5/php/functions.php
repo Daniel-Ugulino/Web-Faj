@@ -260,10 +260,10 @@ function news_control_card()
 
 
         if (isset($_POST["date"]) || isset($_POST["name"])) {
-            $publi_date = $_POST["date"];
+            // $publi_date = $_POST["date"];
             $name = $_POST["name"];
             
-            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where titulo like '%".$name."%'");
+            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where LOWER(titulo) like LOWER('%".$name."%') OR LOWER(subtitulo) like LOWER('%".$name."%')");
         }
         else
         {
