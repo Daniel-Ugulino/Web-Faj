@@ -3,10 +3,6 @@
     opacity: 1;
 }
 
-* {
-    -moz-user-select: auto;
-}
-
 .data {
     background: transparent;
     border-color: transparent transparent #ffffff transparent;

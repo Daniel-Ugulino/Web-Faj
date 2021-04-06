@@ -6,6 +6,15 @@ $("#cadastrar").submit(function(e) {
     var newsData = new FormData(document.getElementById("cadastrar"));
     newsData.append('op', 'news-create');
 
+    if (sessionStorage.getItem('id') == "") {
+        newsData.append('post_data', '1');
+        newsData.append('id', '1');
+
+    } else {
+        newsData.append('post_data', '2');
+        newsData.append('id', sessionStorage.getItem('id'));
+    }
+
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -17,7 +26,6 @@ $("#cadastrar").submit(function(e) {
         success: function(data) {
             alert("Noticia criada com sucesso");
             $("#cadastrar")[0].reset()
-
         },
         error: function(xhr, ajaxOptions, thrownError) {
             alert("ERROR:" + xhr.responseText + " - " + thrownError);
@@ -26,7 +34,6 @@ $("#cadastrar").submit(function(e) {
 });
 
 $("#login").submit(function(e) {
-
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -43,7 +50,7 @@ $("#login").submit(function(e) {
             } else if (data == 2) {
                 $(document).ready(function() {
                     $('#update_modal').modal('show');
-                    update();
+                    update_key();
                 });
             } else {
                 alert('Usuario ou senha erradas')
@@ -55,29 +62,59 @@ $("#login").submit(function(e) {
     });
 });
 
-if (filename == "main.php") {
-    function getids() {
-        var elements = document.getElementsByClassName("news");
+function getdata() {
+    var elements = document.getElementsByClassName("news");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('click', function() {
+            var attribute = this.getAttribute("id");
 
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].addEventListener('click', function() {
-                var attribute = this.getAttribute("id");
+            if (filename == "main.php") {
+                sessionStorage.setItem('id', attribute);
+                window.location.href = "news.php";
 
-                $.ajax({
-                    type: "POST",
-                    url: "php/functions.php",
-                    data: {
-                        op: "news-select",
-                        id: attribute
-                    },
-                    datatype: "html",
-                    success: function(data) {
-                        window.location.href = "news.php";
-                    }
-                });
-            })
-        }
+            } else if (filename == "news_control.php") {
+                sessionStorage.setItem('Edição', true);
+                sessionStorage.setItem('id', attribute);
+                location.href = "create-news.php";
+            };
+        })
     }
+}
+
+function pagintation() {
+    var links = document.getElementsByClassName("page-link");
+
+    for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+            var page = this.getAttribute("id");
+
+            if (filename == "main.php") {
+                var option = "news_menu_card";
+                var card = "#Card_News";
+            } else if (filename == "news_control.php") {
+                var option = "card_control";
+                var card = "#card_control";
+
+            };
+            $.ajax({
+                type: "POST",
+                url: "php/functions.php",
+                data: {
+                    op: option,
+                    page_index: page,
+                },
+                datatype: "html",
+                success: function(data) {
+                    $(card).html(data);
+                    getdata();
+                }
+            });
+        })
+    };
+}
+
+
+if (filename == "main.php") {
     $(document).ready(function() {
         setInterval(function() {
             listar_noticia();
@@ -96,6 +133,7 @@ if (filename == "main.php") {
                             apear[i].style.display = "flex";
                         }
                     }
+                    getdata();
                 }
             });
             $.ajax({
@@ -107,38 +145,14 @@ if (filename == "main.php") {
                 datatype: "html",
                 success: function(data) {
                     $("#Card_News").html(data);
-                    getids();
-
+                    getdata();
                 }
             });
         }
         listar_noticia()
+        pagintation();
     });
 
-    function pagintation() {
-        var links = document.getElementsByClassName("page-link");
-
-        for (var i = 0; i < links.length; i++) {
-            links[i].addEventListener('click', function() {
-                var page = this.getAttribute("id");
-
-                $.ajax({
-                    type: "POST",
-                    url: "php/functions.php",
-                    data: {
-                        op: "news_menu_card",
-                        page_index: page,
-                    },
-                    datatype: "html",
-                    success: function(data) {
-                        $("#Card_News").html(data);
-                        getids();
-                    }
-                });
-            })
-        };
-    }
-    pagintation();
 }
 
 if (filename == "news.php") {
@@ -149,11 +163,12 @@ if (filename == "news.php") {
                 url: "php/functions.php",
                 data: {
                     op: "news-select",
+                    show_data: 1,
+                    id: sessionStorage.getItem('id')
                 },
                 datatype: "html",
                 success: function(data) {
                     $("#News_content").html(data);
-
                 }
             });
         }
@@ -162,48 +177,81 @@ if (filename == "news.php") {
 }
 
 if (filename == "news_control.php") {
-    $(document).ready(function() {
-        function card_control_show() {
-            $.ajax({
-                type: "POST",
-                url: "php/functions.php",
-                data: {
-                    op: "card_control",
-                    date: $("#date_filter").val(),
-                    name: $("#name_filter").val()
-                },
-                datatype: "html",
-                success: function(data) {
-                    $("#card_control").html(data);
+    sessionStorage.setItem('id', "");
 
-                }
-            });
-        }
+    function card_control_show() {
+        $.ajax({
+            type: "POST",
+            url: "php/functions.php",
+            data: {
+                op: "card_control",
+                Inidate: $("#start_date").val(),
+                Fimdate: $("#end_date").val(),
+                name: $("#name_filter").val()
+            },
+            datatype: "html",
+            success: function(data) {
+                $("#card_control").html(data);
+                getdata();
+            }
+        });
+    }
+
+    $(document).ready(function() {
         card_control_show();
+        pagintation();
     })
 
     $("#news_filter").keyup(function() {
-        function card_control_show() {
+        card_control_show();
+    })
+
+    // $("#end_date").change(function() {
+    //     card_control_show();
+    // })
+    // $("#start_date").change(function() {
+    //     card_control_show();
+    // })
+}
+
+if (filename == "create-news.php") {
+    console.log(sessionStorage.getItem('id'))
+    if (sessionStorage.getItem('id') != "") {
+        function updateNews() {
             $.ajax({
                 type: "POST",
                 url: "php/functions.php",
                 data: {
-                    op: "card_control",
-                    date: $("#date_filter").val(),
-                    name: $("#name_filter").val()
+                    op: "news-select",
+                    show_data: 2,
+                    id: sessionStorage.getItem("id")
                 },
                 datatype: "html",
                 success: function(data) {
-                    $("#card_control").html(data);
+                    news_data = JSON.parse(data);
 
+                    $("#titulo").attr("value", news_data['titulo']);
+                    $("#Stitulo").attr("value", news_data['subtitulo']);
+
+                    if (news_data['news_file'] != "") {
+                        $("#filelabel").empty();
+                        $("#filelabel").append("Há Arquivo Anexado");
+                    }
+
+                    $("#previews").attr("style", "display:initial");
+                    $("#Nimg").attr("style", "display:none");
+
+                    $("#previews").attr("src", news_data['news_image']);
+                    $("#p1noticia").append(news_data['noticia_p1']);
+                    $("#p2noticia").append(news_data['noticia_p2']);
                 }
             });
         }
-        card_control_show();
-    })
+        updateNews();
+    }
 }
 
-function upkey() {
+function keyVerify() {
     if ($("#new_key").val() != "" && $("#old_key").val() != "") {
         if ($("#new_key").val() == $("#new_key_confirm").val()) {
             $("#sub_key").prop("disabled", false);
@@ -215,7 +263,7 @@ function upkey() {
     }
 }
 
-function update() {
+function update_key() {
     $("#up_key").submit(function(y) {
         y.preventDefault();
         $.ajax({
@@ -241,8 +289,4 @@ function update() {
         });
 
     });
-}
-
-function news_filter() {
-
 }

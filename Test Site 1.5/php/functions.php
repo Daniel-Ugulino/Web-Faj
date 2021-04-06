@@ -43,7 +43,7 @@ function insert_news()
         //  pega a imagem do formulário e converte para hexadecimal
         $img = $_FILES['images']["name"];
         $extI = pathinfo($img, PATHINFO_EXTENSION);
-        $newNameI = md5($img) . "." . $extI;
+        $newNameI = md5($img) . time() . "." . $extI;
         $pathI = "Arquivos/news-imgs/";
         $sla = move_uploaded_file($_FILES['images']["tmp_name"], "../" . $pathI . $newNameI);
         $news_img = $pathI . $newNameI;
@@ -54,7 +54,7 @@ function insert_news()
         if ($news_files != "") {
             $img = $_FILES['file']["name"];
             $extF = pathinfo($img, PATHINFO_EXTENSION);
-            $newNameF = md5($img) . "." . $extF;
+            $newNameF = md5($img) . time() . "." . $extF;
             $pathF = 'Arquivos/news-files/';
             $sla = move_uploaded_file($_FILES['file']["tmp_name"], "../" . $pathF . $newNameF);
             $news_file = $pathF . $newNameF;
@@ -67,9 +67,15 @@ function insert_news()
         $conexao->conectar();
 
         //envia os dados para o banco
-        $stm = $conexao->conectar()
-            ->prepare("insert into noticias values (DEFAULT,$creator,:Titulo,:Stitulo,:p1noticia,:p2noticia, '$news_img' , '$news_file' ,now(),'true')");
 
+        if ($_POST['post_data'] == 1) {
+            $stm = $conexao->conectar()
+                ->prepare("insert into noticias values (DEFAULT,$creator,:Titulo,:Stitulo,:p1noticia,:p2noticia, '$news_img' , '$news_file' ,now(),'true')");
+        } else if ($_POST['post_data'] == 2) {
+            $id = $_POST['id'];
+            $stm = $conexao->conectar()
+                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_img' where id_news = '$id'" );
+        }
         $stm->bindParam("Titulo", $_POST['Titulo']);
         $stm->bindParam("Stitulo", $_POST['Stitulo']);
         $stm->bindParam("p1noticia", $_POST['p1noticia']);
@@ -121,7 +127,7 @@ function news_menu_carrousel()
                     <div class="News justify-content-center">
                     <div class="slide-text">
                         <h5 style="font-weight: bold;">' . $newsval->titulo . '</h5>
-                        <p><?=$subtitulo[1]?>' . $newsval->subtitulo . '</p>
+                        <p>' . $newsval->subtitulo . '</p>
                     </div>
                     <img src="' . $newsval->news_image . '">
                     </div>
@@ -133,7 +139,7 @@ function news_menu_carrousel()
                     <div class="News justify-content-center">
                     <div class="slide-text">
                         <h5 style="font-weight: bold;">' . $newsval->titulo . '</h5>
-                        <p><?=$subtitulo[1]?>' . $newsval->subtitulo . '</p>
+                        <p>' . $newsval->subtitulo . '</p>
                     </div>
                     <img src="' . $newsval->news_image . '">
                     </div>
@@ -189,21 +195,27 @@ function news_menu_card()
 function getnews()
 {
     try {
+
         $conexao = new conexao_banco();
         $conexao->conectar();
         if (isset($_POST["id"])) {
             $_SESSION['id_news'] = $_POST["id"];
         }
+        if (isset($_POST["show_data"])) {
+            $_SESSION['show_data'] = $_POST["show_data"];
+        }
+
         // else{
         //     header("Location: main.php");
         // }
         $selected_news = $_SESSION['id_news'];
+        $data_show = $_SESSION['show_data'];
         $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news");
         $stm->execute();
-        $news = [];
         $newsval = $stm->fetch(PDO::FETCH_OBJ);
 
-        echo ('
+        if ($data_show == 1) {
+            echo ('
         <div class="Cabeçalho">
             <h2>' . $newsval->titulo . '</h2>
             <h5>' . $newsval->username . ' - ' . $newsval->post_day . '</h5>
@@ -220,6 +232,9 @@ function getnews()
             <a href="' . $newsval->news_files . '" class="file-text">Clique para obter o arquivo da noticia</a>
         </div>
         ');
+        } else if ($data_show == 2) {
+            echo json_encode($newsval);
+        }
     } catch (Exception $e) {
         echo ($e);
     }
@@ -258,17 +273,37 @@ function news_control_card()
             $pages = $_POST["page_index"];
         }
 
+        $id = $conexao->conectar()->prepare("select MAX(id_news) as last from noticias ");
+        $id->execute();
+        while ($last = $id->fetch(PDO::FETCH_OBJ)) {
+            $lastN = $last->last - $pages;
+        };
 
-        if (isset($_POST["date"]) || isset($_POST["name"])) {
-            // $publi_date = $_POST["date"];
+        if (isset($_POST["name"])) {
             $name = $_POST["name"];
-            
-            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where LOWER(titulo) like LOWER('%".$name."%') OR LOWER(subtitulo) like LOWER('%".$name."%')");
+            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user
+             where id_news <= $lastN and (LOWER(titulo) like LOWER('%" . $name . "%') OR LOWER(subtitulo) like LOWER('%" . $name . "%'))
+             order by id_news DESC");
+        } else {
+            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user 
+            where id_news <= $lastN  order by id_news DESC ");
         }
-        else
-        {
-            $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user order by id_news DESC" );
-        }
+
+        // if (isset($_POST["Inidate"]) && isset($_POST["Fimdate"])) {
+
+        //     $dataIni = date('Y-m-d', strtotime(str_replace('/', '-', htmlspecialchars($_POST['Inidate']))));
+        //     $dataFim = date('Y-m-d', strtotime(str_replace('/', '-', htmlspecialchars($_POST['Fimdate']))));
+
+        //     $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user
+        //     where id_news <= $lastN and post_day between '$dataIni' and '$dataFim' order by id_news DESC ");
+        // }
+
+
+        // else {
+        //     $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user 
+        //     where id_news <= $lastN  order by id_news DESC ");
+        // }
+
         $stm->execute();
 
         while ($newsval = $stm->fetch(PDO::FETCH_OBJ)) {

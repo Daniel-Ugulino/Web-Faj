@@ -37,7 +37,7 @@
       <div class="row d-flex justify-content-center">
         <div class="Cn-Cabeçalho">
           <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required
-            maxlength="35">
+            maxlength="40">
           <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required
             maxlength="100">
           <input type="file" name="file" id="news-file" class="inputfile" onchange="File_Name()">
@@ -58,13 +58,13 @@
 
         </div>
 
-        <textarea name="p1noticia" id="p1noticia" cols="30" rows="10" class="p_noticia1"
+        <textarea name="p1noticia" id="p1noticia" cols="30" rows="10" class="p_noticia1" wrap="hard"
           placeholder="Escreva o texto aqui. Máximo de :1180 caracteres" required></textarea>
 
       </div>
       <div class="row justify-content-center">
 
-        <textarea name="p2noticia" id="p2noticia" cols="30" rows="10" class="p_noticia2" maxlength="740"
+        <textarea name="p2noticia" id="p2noticia" cols="30" rows="10" class="p_noticia2" maxlength="740" wrap="hard"
           placeholder="Escreva o texto aqui. Máximo de :740 caracteres"></textarea>
       </div>
 
@@ -74,20 +74,11 @@
     </div>
 
   </form>
-
-  <script src="javascript/files-preview.js"></script>
-  <script src="javascript/sidebar.js"></script>
   <script src="javascript/jquery-3.5.1.min.js"></script>
   <script src="javascript/js/bootstrap.min.js"></script>
   <script src="javascript/posts.js"></script>
-
-  <script>
-    window.onload = function () {
-      var $dia = document.getElementById("date");
-      var $sla = new Date();
-      $dia.innerText = $sla.getDate() + "/" + $sla.getMonth() + "/" + $sla.getFullYear();;
-    };
-  </script>
+  <script src="javascript/files-preview.js"></script>
+  <script src="javascript/sidebar.js"></script>
 
 </body>
 

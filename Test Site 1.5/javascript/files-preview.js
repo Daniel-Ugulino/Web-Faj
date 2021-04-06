@@ -4,6 +4,12 @@ var preImg = document.getElementById("previews");
 var label = document.getElementById("Nimg");
 var sla = document.getElementById("sla");
 
+$(document).ready(function() {
+    var dia = document.getElementById("date");
+    var sla = new Date();
+    dia.innerText = sla.getDate() + "/" + sla.getMonth() + "/" + sla.getFullYear();;
+});
+
 function preview() {
     var reader = new FileReader;
     reader.readAsDataURL(input.files[0])

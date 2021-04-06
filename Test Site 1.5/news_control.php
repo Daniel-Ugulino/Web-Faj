@@ -38,28 +38,33 @@ $user = $_SESSION['name_user']
     <div class="row d-flex justify-content-center" style="margin-top: 20px;" id="news_filter">
 
       <input type="text" class="input-tags" id="name_filter" placeholder="Titulo da Noticia">
-      <input type='text' class="input-tags" placeholder="Data Inicial" id="start_date">
-      <input type='text' class="input-tags" placeholder="Data Final" id="end_date">
+      <input type='text' class="input-tags" placeholder="De:" id="start_date">
+      <input type='text' class="input-tags" placeholder="Até:" id="end_date">
 
 
     </div>
 
     <div class="row d-flex justify-content-center" id="card_control" style="margin-top:30px">
 
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
 
     </div>
     <nav class="d-flex justify-content-center" style="margin-top:55px;">
       <ul class="pagination hide">
-        <li class="page-item"><a class="page-link" id="3">1</a></li>
-        <li class="page-item"><a class="page-link" id="6">2</a></li>
-        <li class="page-item"><a class="page-link" id="9">3</a></li>
-        <li class="page-item"><a class="page-link" id="12">4</a></li>
-        <li class="page-item"><a class="page-link" id="15">5</a></li>
-        <li class="page-item"><a class="page-link" id="18">6</a></li>
-        <li class="page-item"><a class="page-link" id="21">7</a></li>
-        <li class="page-item"><a class="page-link" id="24">8</a></li>
-        <li class="page-item"><a class="page-link " id="27">9</a></li>
-        <li class="page-item"><a class="page-link" id="30">10</a></li>
+        <li class="page-item"><a class="page-link" id="0">1</a></li>
+        <li class="page-item"><a class="page-link" id="5">2</a></li>
+        <li class="page-item"><a class="page-link" id="10">3</a></li>
+        <li class="page-item"><a class="page-link" id="15">4</a></li>
+        <li class="page-item"><a class="page-link" id="20">5</a></li>
+        <li class="page-item"><a class="page-link" id="25">6</a></li>
+        <li class="page-item"><a class="page-link" id="30">7</a></li>
+        <li class="page-item"><a class="page-link" id="35">8</a></li>
+        <li class="page-item"><a class="page-link " id="40">9</a></li>
+        <li class="page-item"><a class="page-link" id="45">10</a></li>
       </ul>
     </nav>
   </div>
