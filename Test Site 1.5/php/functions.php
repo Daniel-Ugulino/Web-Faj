@@ -34,6 +34,10 @@ switch ($op) {
     case ("card_control"):
         news_control_card();
         break;
+
+    case ("news_situation"):
+        news_situation();
+        break;
 }
 
 function insert_news()
@@ -74,7 +78,7 @@ function insert_news()
         } else if ($_POST['post_data'] == 2) {
             $id = $_POST['id'];
             $stm = $conexao->conectar()
-                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_img' where id_news = '$id'" );
+                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_img' where id_news = '$id'");
         }
         $stm->bindParam("Titulo", $_POST['Titulo']);
         $stm->bindParam("Stitulo", $_POST['Stitulo']);
@@ -117,7 +121,7 @@ function news_menu_carrousel()
         $i = 0;
         $conexao = new conexao_banco();
         $conexao->conectar();
-        $stm = $conexao->conectar()->prepare("select * from noticias order by id_news DESC limit 3");
+        $stm = $conexao->conectar()->prepare("select * from noticias where situação order by id_news DESC limit 3");
         $stm->execute();
         $stm->rowCount();
         while ($newsval = $stm->fetch(PDO::FETCH_OBJ)) {
@@ -172,7 +176,7 @@ function news_menu_card()
             $lastN = $last->last - $pages;
         };
 
-        $stm = $conexao->conectar()->prepare("select * from noticias where id_news <= $lastN  order by id_news DESC ");
+        $stm = $conexao->conectar()->prepare("select * from noticias where id_news <= $lastN AND situação = true order by id_news DESC ");
         $stm->execute();
         //$news = [];
         while ($newsval = $stm->fetch(PDO::FETCH_OBJ)) {
@@ -233,6 +237,10 @@ function getnews()
         </div>
         ');
         } else if ($data_show == 2) {
+            $logged_user = $_SESSION['user_id'];
+
+            // array_push($newsval, $logged_user);
+            // echo json_encode($logged_user);
             echo json_encode($newsval);
         }
     } catch (Exception $e) {
@@ -326,3 +334,21 @@ function news_control_card()
         echo ($e);
     }
 }
+
+function news_situation()
+{
+    try {
+        $conexao = new conexao_banco();
+        $conexao->conectar();
+
+        $stm = $conexao->conectar()
+            ->prepare("update noticias set situação = :situacao where id_news = :id_news");
+
+        $stm->bindParam("id_news", $_POST['news_id']);
+        $stm->bindParam("situacao", $_POST['situacao']);
+        $stm->execute();
+    } catch (Exception $e) {
+        echo ("<script>alert('Erro ao criar noticia')</script>");
+        echo ($e);
+    }
+};

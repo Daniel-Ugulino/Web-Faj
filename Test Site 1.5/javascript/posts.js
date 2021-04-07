@@ -24,8 +24,12 @@ $("#cadastrar").submit(function(e) {
         cache: false,
         contentType: false,
         success: function(data) {
-            alert("Noticia criada com sucesso");
-            $("#cadastrar")[0].reset()
+            if (sessionStorage.getItem('id') == "") {
+                alert("Noticia criada com sucesso");
+                $("#cadastrar")[0].reset()
+            } else {
+                alert("Noticia alterada com sucesso");
+            }
         },
         error: function(xhr, ajaxOptions, thrownError) {
             alert("ERROR:" + xhr.responseText + " - " + thrownError);
@@ -112,7 +116,6 @@ function pagintation() {
         })
     };
 }
-
 
 if (filename == "main.php") {
     $(document).ready(function() {
@@ -215,8 +218,9 @@ if (filename == "news_control.php") {
 }
 
 if (filename == "create-news.php") {
-    console.log(sessionStorage.getItem('id'))
+
     if (sessionStorage.getItem('id') != "") {
+
         function updateNews() {
             $.ajax({
                 type: "POST",
@@ -230,6 +234,46 @@ if (filename == "create-news.php") {
                 success: function(data) {
                     news_data = JSON.parse(data);
 
+
+                    if (sessionStorage.getItem('user') == "2") {
+                        if (news_data['situação'] == true) {
+                            $(".publicarN").after("<button style='margin-left: 10px;' type='button' class=publicarN id='situação'>Desativar</button>");
+                        } else {
+                            $(".publicarN").after("<button style='margin-left: 10px;' type='button' class=publicarN id='situação'>Ativar</button>");
+
+                        }
+                    }
+
+                    if ($("#situação").html() == "Desativar") {
+                        situacao = false;
+                    } else if ($("#situação").html() == "Ativar") {
+                        situacao = true;
+                    }
+
+                    function activateNews() {
+                        $.ajax({
+                            type: "POST",
+                            url: "php/functions.php",
+                            data: {
+                                op: "news_situation",
+                                news_id: news_data['id_news'],
+                                situacao: situacao
+                            },
+                            datatype: "html",
+                            success: function(data) {
+                                alert("Situação Alterada");
+                                document.location.reload(true);
+                            }
+                        });
+                    }
+
+                    if ($("#situação").html() == "Desativar") {
+                        situacao = false
+                    } else if ($("#situação").html() == "Ativar") {
+                        situacao = true
+                    }
+
+
                     $("#titulo").attr("value", news_data['titulo']);
                     $("#Stitulo").attr("value", news_data['subtitulo']);
 
@@ -237,6 +281,10 @@ if (filename == "create-news.php") {
                         $("#filelabel").empty();
                         $("#filelabel").append("Há Arquivo Anexado");
                     }
+
+                    $("#situação").click(function() {
+                        activateNews()
+                    });
 
                     $("#previews").attr("style", "display:initial");
                     $("#Nimg").attr("style", "display:none");

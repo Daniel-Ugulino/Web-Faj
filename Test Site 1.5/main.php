@@ -51,7 +51,7 @@ session_start();
     </nav>
   </nav>
 
-  <div class="container-fluid">
+  <div class="container-fluid centered">
 
     <!--News Header-->
     <div class="row d-flex justify-content-center">

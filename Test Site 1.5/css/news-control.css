@@ -44,6 +44,7 @@
     color: #ffffff;
     border-style: solid;
     transition: all 0.5s;
+    border-color: #ffffff;
 }
 
 @media (max-width:620px) {

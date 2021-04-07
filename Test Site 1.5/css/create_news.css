@@ -34,6 +34,7 @@
     resize: none;
     border-width: 2px;
     border-style: solid;
+    border-color: #ffffff;
     color: #ffffff;
 }
 
@@ -45,6 +46,7 @@
     resize: none;
     border-width: 2px;
     border-style: solid;
+    border-color: #ffffff;
     color: #ffffff;
 }
 
@@ -63,11 +65,12 @@
 }
 
 .publicarN {
-    width: 100px;
+    width: 90px;
     height: 45px;
     background-color: transparent;
     color: #ffffff;
     border-style: solid;
+    border-color: #ffffff;
     border-width: 3px;
     transition: all 0.5s;
 }

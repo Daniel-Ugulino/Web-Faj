@@ -1,6 +1,7 @@
 <?php
 session_start();
-$user = $_SESSION['name_user']
+$user = $_SESSION['name_user'];
+$logged_user = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +79,8 @@ $user = $_SESSION['name_user']
   <script src="javascript/posts.js"></script>
 
   <script>
+    sessionStorage.setItem('user', <?=$logged_user?>);
+
     $(function() {
       $("#start_date").datepicker();
       $("#end_date").datepicker();
