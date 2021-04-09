@@ -77,8 +77,20 @@ function insert_news()
                 ->prepare("insert into noticias values (DEFAULT,$creator,:Titulo,:Stitulo,:p1noticia,:p2noticia, '$news_img' , '$news_file' ,now(),'true')");
         } else if ($_POST['post_data'] == 2) {
             $id = $_POST['id'];
+
+            if($_FILES['images']["name"] = null)
+            {
+                $stm = $conexao->conectar()
+                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_files = '$news_file' where id_news = '$id'");
+            }
+            if($_FILES['file']['tmp_name'] = null)
+            {
+                $stm = $conexao->conectar()
+                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img' where id_news = '$id'");
+            }
+
             $stm = $conexao->conectar()
-                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_img' where id_news = '$id'");
+                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_file' where id_news = '$id'");
         }
         $stm->bindParam("Titulo", $_POST['Titulo']);
         $stm->bindParam("Stitulo", $_POST['Stitulo']);
@@ -105,10 +117,11 @@ function login()
         // session_name(md5($userData->id_user . $_SERVER['REMOTE_ADDR']));
         $_SESSION['user_id'] = $userData->id_user;
         $_SESSION['name_user'] = $userData->username;
+        $_SESSION['cargo'] = $userData->cargo;
         if ($userData->senha == "abc,123" && htmlspecialchars($_POST['senha']) == "abc,123") {
             ob_end_clean();
             echo ("2");
-        } else if ($userData->senha == htmlspecialchars($_POST['senha'])) {
+        } else if (password_verify(htmlspecialchars($_POST['senha']), $userData->senha)) {
             ob_end_clean();
             echo ("1");
         }
@@ -213,9 +226,24 @@ function getnews()
         //     header("Location: main.php");
         // }
         $selected_news = $_SESSION['id_news'];
+
         $data_show = $_SESSION['show_data'];
-        $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news");
+
+        $stm = $conexao->conectar()->prepare("select id_news,titulo,subtitulo,noticia_p1,noticia_p2,news_image,news_files,post_day,situação,username from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news
+        ");
+
+
+        // $stm = $conexao->conectar()->prepare("create view news as 
+        // select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news;
+        // ");
+        // $stm2  = $conexao->conectar()->prepare("select * from news");
+        // $stm3  = $conexao->conectar()->prepare("Drop View news");
+
+
         $stm->execute();
+        // $stm2->execute();
+        // $stm3->execute();
+
         $newsval = $stm->fetch(PDO::FETCH_OBJ);
 
         if ($data_show == 1) {
@@ -237,11 +265,11 @@ function getnews()
         </div>
         ');
         } else if ($data_show == 2) {
-            $logged_user = $_SESSION['user_id'];
+            // $logged_user = $_SESSION['user_id'];
 
             // array_push($newsval, $logged_user);
             // echo json_encode($logged_user);
-            echo json_encode($newsval);
+            echo bin2hex(json_encode($newsval));
         }
     } catch (Exception $e) {
         echo ($e);
@@ -254,9 +282,11 @@ function update_key()
         $loged_user = $_SESSION['user_id'];
         $conexao = new conexao_banco();
         $conexao->conectar();
-        $stm = $conexao->conectar()->prepare("update usuario set senha = :new_S where id_user = '$loged_user' AND  senha = :old_S");
+        $New_S = $_POST['senha_nova'];
+        $cripted_N = password_hash($New_S, PASSWORD_DEFAULT);
+
+        $stm = $conexao->conectar()->prepare("update usuario set senha = '$cripted_N' where id_user = '$loged_user' AND  senha = :old_S");
         $stm->bindParam("old_S", $_POST['senha_antiga']);
-        $stm->bindParam("new_S", $_POST['senha_nova']);
         $stm->execute();
         if ($_POST['senha_antiga'] != "abc,123") {
             echo ("2");
@@ -276,6 +306,8 @@ function news_control_card()
         $conexao = new conexao_banco();
         $conexao->conectar();
         $pages = 0;
+        $cargo = $_SESSION['cargo'];
+        echo("<script>sessionStorage.setItem('cargo' ,'" . $cargo . "' )</script>");
 
         if (isset($_POST["page_index"])) {
             $pages = $_POST["page_index"];
