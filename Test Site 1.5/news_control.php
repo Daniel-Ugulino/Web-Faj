@@ -24,7 +24,7 @@ $logged_user = $_SESSION['user_id'];
         <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
         </path>
       </svg>
-      <a href="main.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
+      <a href="index.php"> <img src="Arquivos/Icones/emgepron-logo-2.png" style="margin-left: 20px;"></a>
     </nav>
     <nav style="display: flex;">
       <h5 class="User-text"><?= $user ?></h5>
@@ -39,8 +39,8 @@ $logged_user = $_SESSION['user_id'];
     <div class="row d-flex justify-content-center" style="margin-top: 20px;" id="news_filter">
 
       <input type="text" class="input-tags" id="name_filter" placeholder="Titulo da Noticia">
-      <input type='text' class="input-tags" placeholder="De:" id="start_date">
-      <input type='text' class="input-tags" placeholder="Até:" id="end_date">
+      <!-- <input type='text' class="input-tags" placeholder="De:" id="start_date">
+      <input type='text' class="input-tags" placeholder="Até:" id="end_date"> -->
 
 
     </div>

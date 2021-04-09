@@ -57,7 +57,7 @@ $("#login").submit(function(e) {
                     update_key();
                 });
             } else {
-                alert('Usuario ou senha erradas')
+                alert('Usuario ou senha erradas');
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -72,7 +72,7 @@ function getdata() {
         elements[i].addEventListener('click', function() {
             var attribute = this.getAttribute("id");
 
-            if (filename == "main.php") {
+            if (filename == "index.php") {
                 sessionStorage.setItem('id', attribute);
                 window.location.href = "news.php";
 
@@ -92,7 +92,7 @@ function pagintation() {
         links[i].addEventListener('click', function() {
             var page = this.getAttribute("id");
 
-            if (filename == "main.php") {
+            if (filename == "index.php") {
                 var option = "news_menu_card";
                 var card = "#Card_News";
             } else if (filename == "news_control.php") {
@@ -117,7 +117,7 @@ function pagintation() {
     };
 }
 
-if (filename == "main.php") {
+if (filename == "index.php") {
     $(document).ready(function() {
         setInterval(function() {
             listar_noticia();
@@ -181,6 +181,7 @@ if (filename == "news.php") {
 
 if (filename == "news_control.php") {
     sessionStorage.setItem('id', "");
+    sessionStorage.setItem('cargo', "");
 
     function card_control_show() {
         $.ajax({
@@ -218,7 +219,7 @@ if (filename == "news_control.php") {
 }
 
 if (filename == "create-news.php") {
-
+    console.log(sessionStorage.getItem('cargo'))
     if (sessionStorage.getItem('id') != "") {
 
         function updateNews() {
@@ -232,10 +233,20 @@ if (filename == "create-news.php") {
                 },
                 datatype: "html",
                 success: function(data) {
-                    news_data = JSON.parse(data);
 
+                    var hex = data
+                    bytes = [];
+                    var str;
 
-                    if (sessionStorage.getItem('user') == "2") {
+                    for (var i = 0; i < hex.length - 1; i += 2) {
+                        bytes.push(parseInt(hex.substr(i, 2), 16));
+                    }
+
+                    str = String.fromCharCode.apply(String, bytes);
+                    news_data = JSON.parse(str);
+                    console.log(news_data['cargo']);
+
+                    if (sessionStorage.getItem('cargo') == "adm") {
                         if (news_data['situação'] == true) {
                             $(".publicarN").after("<button style='margin-left: 10px;' type='button' class=publicarN id='situação'>Desativar</button>");
                         } else {
@@ -267,13 +278,6 @@ if (filename == "create-news.php") {
                         });
                     }
 
-                    if ($("#situação").html() == "Desativar") {
-                        situacao = false
-                    } else if ($("#situação").html() == "Ativar") {
-                        situacao = true
-                    }
-
-
                     $("#titulo").attr("value", news_data['titulo']);
                     $("#Stitulo").attr("value", news_data['subtitulo']);
 
@@ -285,6 +289,8 @@ if (filename == "create-news.php") {
                     $("#situação").click(function() {
                         activateNews()
                     });
+
+                    $("#news-image").removeAttr("required");
 
                     $("#previews").attr("style", "display:initial");
                     $("#Nimg").attr("style", "display:none");
@@ -322,11 +328,11 @@ function update_key() {
                 senha_antiga: $('#old_key').val(),
                 senha_nova: $('#new_key').val()
             },
-            success: function(data_up) {
-                if (data_up == 1) {
+            success: function(data) {
+                if (data == 1) {
                     alert("Senha alterada com sucesso");
                     window.location.href = "news_control.php";
-                } else if (data_up == 2) {
+                } else if (data == 2) {
                     alert('A senha anterior está errada')
                 }
 

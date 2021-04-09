@@ -73,6 +73,7 @@
     border-color: #ffffff;
     border-width: 3px;
     transition: all 0.5s;
+    text-align: center;
 }
 
 .publicarN:hover,

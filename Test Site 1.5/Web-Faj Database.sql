@@ -5,7 +5,7 @@ create table usuario
 (
 id_user SERIAL primary key not null,
 username varchar(20),
-senha varchar(10),
+senha text,
 cargo setor
 );
 
