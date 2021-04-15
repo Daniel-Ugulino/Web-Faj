@@ -8,22 +8,13 @@
 }
 
 .titulo-input {
-    margin-left: 500px;
-    background-color: transparent;
-    border-style: hidden;
-    border-bottom: 3px solid #ffffff;
-    height: 40px;
-    color: #ffffff;
-}
-
-.Stitulo-input {
+    margin-left: 300px;
     background-color: transparent;
     border-style: hidden;
     border-bottom: 3px solid #ffffff;
     height: 40px;
     color: #ffffff;
     width: 420px;
-    margin-left: 10px;
 }
 
 .p_noticia1 {
@@ -34,6 +25,7 @@
     resize: none;
     border-width: 2px;
     border-style: solid;
+    border-radius: 3px;
     border-color: #ffffff;
     color: #ffffff;
 }
@@ -41,11 +33,12 @@
 .p_noticia2 {
     margin-top: 35px;
     width: 90%;
-    height: 130px;
+    height: 200px;
     background-color: transparent;
     resize: none;
     border-width: 2px;
     border-style: solid;
+    border-radius: 3px;
     border-color: #ffffff;
     color: #ffffff;
 }
@@ -88,7 +81,7 @@
     align-items: center;
     width: 560px;
     height: 350px;
-    border-radius: 30px;
+    border-radius: 5px;
     background-color: transparent;
     border: #ffffff;
     display: block;
@@ -131,7 +124,7 @@
     z-index: -1;
     width: 100%;
     height: 350px;
-    border-radius: 30px;
+    border-radius: 5px;
 }
 
 @media (max-width:1490px) {
@@ -142,12 +135,8 @@
         margin-right: 20px;
     }
     .titulo-input {
-        margin-left: 115px;
-        margin-bottom: 10px;
-    }
-    .Stitulo-input {
         margin-left: 0px;
-        display: block;
+        margin-bottom: 20px;
     }
     .doc-input {
         margin-left: 100px;

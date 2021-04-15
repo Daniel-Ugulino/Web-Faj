@@ -1,6 +1,7 @@
 var url = window.location.pathname;
 var filename = url.substring(url.lastIndexOf('/') + 1);
 var apear = document.getElementsByClassName("hide");
+console.log(url);
 
 $("#cadastrar").submit(function(e) {
     var newsData = new FormData(document.getElementById("cadastrar"));
@@ -68,11 +69,12 @@ $("#login").submit(function(e) {
 
 function getdata() {
     var elements = document.getElementsByClassName("news");
+
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', function() {
             var attribute = this.getAttribute("id");
 
-            if (filename == "index.php") {
+            if (filename == "" || filename == "index.php") {
                 sessionStorage.setItem('id', attribute);
                 window.location.href = "news.php";
 
@@ -117,7 +119,7 @@ function pagintation() {
     };
 }
 
-if (filename == "index.php") {
+if (filename == "" || filename == "index.php") {
     $(document).ready(function() {
         setInterval(function() {
             listar_noticia();
@@ -253,6 +255,9 @@ if (filename == "create-news.php") {
                             $(".publicarN").after("<button style='margin-left: 10px;' type='button' class=publicarN id='situação'>Ativar</button>");
 
                         }
+                    }
+                    if (sessionStorage.getItem('cargo') == "marketing") {
+                        $(".publicarN").remove();
                     }
 
                     if ($("#situação").html() == "Desativar") {

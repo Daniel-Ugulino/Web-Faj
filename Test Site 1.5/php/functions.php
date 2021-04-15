@@ -74,26 +74,29 @@ function insert_news()
 
         if ($_POST['post_data'] == 1) {
             $stm = $conexao->conectar()
-                ->prepare("insert into noticias values (DEFAULT,$creator,:Titulo,:Stitulo,:p1noticia,:p2noticia, '$news_img' , '$news_file' ,now(),'true')");
+                ->prepare("insert into noticias values (DEFAULT,$creator,:Titulo,:p1noticia,:p2noticia, '$news_img' , '$news_file' ,now(),'true')");
         } else if ($_POST['post_data'] == 2) {
             $id = $_POST['id'];
-
-            if($_FILES['images']["name"] = null)
-            {
-                $stm = $conexao->conectar()
-                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_files = '$news_file' where id_news = '$id'");
-            }
-            if($_FILES['file']['tmp_name'] = null)
-            {
-                $stm = $conexao->conectar()
-                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img' where id_news = '$id'");
-            }
+            echo ($_FILES['images']["name"]);
 
             $stm = $conexao->conectar()
-                ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_file' where id_news = '$id'");
+                ->prepare("update noticias set titulo = :Titulo, noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img', news_files = '$news_file' where id_news = '$id'");
+
+
+            // if ($_FILES['images']["name"] == null || $_FILES['file']['tmp_name'] == null) {
+            //     $stm = $conexao->conectar()
+            //         ->prepare("update noticias set titulo = :Titulo , subtitulo = :Stitulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now() where id_news = '$id'");
+            // }
+
+            if ($_FILES['images']["name"] == null) {
+                $stm = $conexao->conectar()
+                    ->prepare("update noticias set titulo = :Titulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_files = '$news_file' where id_news = '$id'");
+            } else if ($_FILES['file']['tmp_name'] == null) {
+                $stm = $conexao->conectar()
+                    ->prepare("update noticias set titulo = :Titulo , noticia_p1 = :p1noticia, noticia_p2 = :p2noticia, post_day = now(), news_image = '$news_img' where id_news = '$id'");
+            }
         }
         $stm->bindParam("Titulo", $_POST['Titulo']);
-        $stm->bindParam("Stitulo", $_POST['Stitulo']);
         $stm->bindParam("p1noticia", $_POST['p1noticia']);
         $stm->bindParam("p2noticia", $_POST['p2noticia']);
         $stm->execute();
@@ -143,8 +146,7 @@ function news_menu_carrousel()
                 <div class="carousel-item news active" id="' . $newsval->id_news . '">
                     <div class="News justify-content-center">
                     <div class="slide-text">
-                        <h5 style="font-weight: bold;">' . $newsval->titulo . '</h5>
-                        <p>' . $newsval->subtitulo . '</p>
+                        <p style="font-size:1.2em;">' . $newsval->titulo . '</p>
                     </div>
                     <img src="' . $newsval->news_image . '">
                     </div>
@@ -155,8 +157,7 @@ function news_menu_carrousel()
                 <div class="carousel-item news" id="' . $newsval->id_news . '">
                     <div class="News justify-content-center">
                     <div class="slide-text">
-                        <h5 style="font-weight: bold;">' . $newsval->titulo . '</h5>
-                        <p>' . $newsval->subtitulo . '</p>
+                        <p style="font-size:1.2em;">' . $newsval->titulo . '</p>
                     </div>
                     <img src="' . $newsval->news_image . '">
                     </div>
@@ -198,7 +199,7 @@ function news_menu_card()
                 <div class="card news" id="' . $newsval->id_news . '">
                 <img src="' . $newsval->news_image . '" class="card-img-top card-img">
                 <div class="card-body">
-                  <p class="card-text" style="text-decoration: none;">' . $newsval->subtitulo . '</p>
+                  <p class="card-text" style="text-decoration: none;">' . $newsval->titulo . '</p>
                 </div>
               </div>');
             }
@@ -229,24 +230,29 @@ function getnews()
 
         $data_show = $_SESSION['show_data'];
 
-        $stm = $conexao->conectar()->prepare("select id_news,titulo,subtitulo,noticia_p1,noticia_p2,news_image,news_files,post_day,situação,username from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news
+        $stm = $conexao->conectar()->prepare("select id_news,titulo,noticia_p1,noticia_p2,news_image,news_files,post_day,situação,username from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news
         ");
 
-
-        // $stm = $conexao->conectar()->prepare("create view news as 
-        // select * from noticias inner join usuario on usuario.id_user = noticias.idf_user where id_news = $selected_news;
-        // ");
-        // $stm2  = $conexao->conectar()->prepare("select * from news");
-        // $stm3  = $conexao->conectar()->prepare("Drop View news");
-
-
         $stm->execute();
-        // $stm2->execute();
-        // $stm3->execute();
 
         $newsval = $stm->fetch(PDO::FETCH_OBJ);
 
         if ($data_show == 1) {
+
+            $p1 = (explode("\n\r", $newsval->noticia_p1));
+            $p1_tags = "";
+
+            $p2 = (explode("\n\r", $newsval->noticia_p2));
+            $p2_tags = "";
+
+            for ($i = 0; $i < count($p1); $i++) {
+                $p1_tags = $p1_tags . ('<p>' . $p1[$i] . '</p>');
+            }
+
+            for ($i = 0; $i < count($p2); $i++) {
+                $p2_tags = $p2_tags . ('<p>' . $p2[$i] . '</p>');
+            }
+
             echo ('
         <div class="Cabeçalho">
             <h2>' . $newsval->titulo . '</h2>
@@ -254,10 +260,10 @@ function getnews()
         </div>
         <div class="row d-flex justify-content-center">
             <img src="' . $newsval->news_image . '" alt="" class="img">
-            <p class="news-paragraph1">' . $newsval->noticia_p1 . '</p>
+            <div class="news-paragraph1">' . $p1_tags . '</div>
         </div>
         <div class="row justify-content-center">
-            <p class="news-paragraph2" data-toggle="popover" data-content="Disabled popover">' . $newsval->noticia_p2 . '</p>
+            <div class="news-paragraph2">' . $p2_tags . '</div>
         </div>
         <div class="row justify-content-center">
             <img src="Arquivos\Icones\FAJCMC-Sem-fundo.png" alt="" class="Logo-Faj">
@@ -307,7 +313,7 @@ function news_control_card()
         $conexao->conectar();
         $pages = 0;
         $cargo = $_SESSION['cargo'];
-        echo("<script>sessionStorage.setItem('cargo' ,'" . $cargo . "' )</script>");
+        echo ("<script>sessionStorage.setItem('cargo' ,'" . $cargo . "' )</script>");
 
         if (isset($_POST["page_index"])) {
             $pages = $_POST["page_index"];
@@ -322,7 +328,7 @@ function news_control_card()
         if (isset($_POST["name"])) {
             $name = $_POST["name"];
             $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user
-             where id_news <= $lastN and (LOWER(titulo) like LOWER('%" . $name . "%') OR LOWER(subtitulo) like LOWER('%" . $name . "%'))
+             where id_news <= $lastN and (LOWER(titulo) like LOWER('%" . $name . "%'))
              order by id_news DESC");
         } else {
             $stm = $conexao->conectar()->prepare("select * from noticias inner join usuario on usuario.id_user = noticias.idf_user 
@@ -351,12 +357,8 @@ function news_control_card()
                 echo ('
                 <div class="card news" id="' . $newsval->id_news . '">
                 <img src="' . $newsval->news_image . '" class="card-img-top card-img">
-                <div class="card-body">
-                <p style="text-align: center;">' . $newsval->titulo . '</p>
-                <p class="card-text" style="text-decoration: none;">' . $newsval->subtitulo . '</p>
-                <div>
-                <p style="text-align: center;">' . $newsval->username . ' ' . $newsval->post_day . '</p>
-                </div>
+                <div class="card-body" >
+                <p class="card-text " style="text-align: center; margin-top: 30px;">' . $newsval->titulo  . '<br><br>' . $newsval->username . ' ' . $newsval->post_day . '</p>
                 </div>
               </div>');
             }

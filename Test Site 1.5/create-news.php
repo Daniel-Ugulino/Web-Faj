@@ -37,8 +37,6 @@
       <div class="row d-flex justify-content-center">
         <div class="Cn-Cabeçalho">
           <input type="text" name="Titulo" placeholder="Titulo" class="titulo-input" id="titulo" required
-            maxlength="40">
-          <input type="text" name="Stitulo" placeholder="Sub-Titulo" class="Stitulo-input" id="Stitulo" required
             maxlength="100">
           <input type="file" name="file" id="news-file" class="inputfile" onchange="File_Name()">
 

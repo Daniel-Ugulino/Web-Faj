@@ -6,8 +6,9 @@ var sla = document.getElementById("sla");
 
 $(document).ready(function() {
     var dia = document.getElementById("date");
-    var sla = new Date();
-    dia.innerText = sla.getDate() + "/" + sla.getMonth() + "/" + sla.getFullYear();;
+    var dateNow = new Date();
+    dia.innerText = dateNow.getDate() + "/" + (dateNow.getMonth() + 1) + "/" + dateNow.getFullYear();;
+    console.log(dateNow.getMonth())
 });
 
 function preview() {

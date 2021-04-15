@@ -13,7 +13,7 @@
     background-color: transparent;
     width: 850px;
     color: black;
-    border-radius: 10px;
+    border-radius: 3px;
     margin-top: 14px;
     transition: 0.5s all;
     border-color: #fff;
@@ -24,7 +24,7 @@
 .slide img {
     height: 300px;
     object-fit: fill;
-    border-radius: 10px;
+    border-radius: 3px;
     margin-left: 10px;
     width: 73%;
 }
@@ -50,7 +50,7 @@
 
 .card img {
     height: 90px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 3px 3px 0 0;
     background-color: #fff;
 }
 
@@ -61,7 +61,7 @@
     background-image: linear-gradient(180deg, #5d57bb 0%, #5ea0d6 100%);
     margin: 24px 21px 0 21px;
     font-size: 0.9rem;
-    border-radius: 10px;
+    border-radius: 3px;
     color: #fff;
     border-color: #fff;
     transition: 0.5s all;
